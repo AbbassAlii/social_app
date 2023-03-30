@@ -1,0 +1,344 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - SocialProject</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/SocialProject.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css"/>
+
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css" />
+
+@*
+    <link rel="stylesheet" href="//cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css" />*@
+
+</head>
+<body>
+   <header>
+        <nav role="navigation" class="css-m4i65p e1hmytjs2">
+            <style data-emotion="css 127d8un">
+                .css-127d8un {
+                    position: relative;
+                    display: grid;
+                    grid-template-columns: auto min-content;
+                    height: 88px;
+                    -webkit-align-items: center;
+                    -webkit-box-align: center;
+                    -ms-flex-align: center;
+                    align-items: center;
+                    justify-items: start;
+                    z-index: 1010;
+                }
+
+                @@media print {
+                    .css-127d8un {
+                        display: none;
+                    }
+                }</style>
+            <style data-emotion="css 18dky24">
+                .css-18dky24 {
+                    position: relative;
+                    margin: 0 auto;
+                    box-sizing: border-box;
+                    width: 100%;
+                    height: 100%;
+                    padding-left: 15px;
+                    padding-right: 15px;
+                    position: relative;
+                    display: grid;
+                    grid-template-columns: auto min-content;
+                    height: 88px;
+                    -webkit-align-items: center;
+                    -webkit-box-align: center;
+                    -ms-flex-align: center;
+                    align-items: center;
+                    justify-items: start;
+                    z-index: 1010;
+                }
+
+                @@media screen and (min-width: 768px) {
+                    .css-18dky24 {
+                        width: 750px;
+                    }
+                }
+
+                @@media screen and (min-width: 992px) {
+                    .css-18dky24 {
+                        width: 970px;
+                    }
+                }
+
+                @@media screen and (min-width: 1200px) {
+                    .css-18dky24 {
+                        width: 1170px;
+                    }
+                }
+
+                @@media print {
+                    .css-18dky24 {
+                        display: none;
+                    }
+                }</style>
+            <div class="e1hmytjs1 css-18dky24 e1pzrm670">
+                <a href="index.html">
+                    <style data-emotion="css xcnkp8">
+                        .css-xcnkp8 {
+                            width: 176px;
+                            z-index: 1;
+                            position: relative;
+                            box-shadow: 0px 0px 20px #ffffff;
+                        }</style>
+                    <div class="css-xcnkp8 e1hmytjs0 gatsby-image-wrapper" style="position:relative;overflow:hidden">
+                        <div aria-hidden="true" style="width:100%;padding-bottom:29.000000000000004%"></div>
+                        <picture>
+                            <source srcSet="/static/8ceb13c1cedc11f744c9077b520d0c79/65e33/classdojo_logo_176%402x.png 100w,
+                                 /static/8ceb13c1cedc11f744c9077b520d0c79/69585/classdojo_logo_176%402x.png 200w,
+                                 /static/8ceb13c1cedc11f744c9077b520d0c79/39223/classdojo_logo_176%402x.png 352w" sizes="(max-width: 352px) 100vw, 352px" />
+                            <img sizes="(max-width: 352px) 100vw, 352px" srcSet="/static/8ceb13c1cedc11f744c9077b520d0c79/65e33/classdojo_logo_176%402x.png 100w,
+                                 /static/8ceb13c1cedc11f744c9077b520d0c79/69585/classdojo_logo_176%402x.png 200w,
+                                 /static/8ceb13c1cedc11f744c9077b520d0c79/39223/classdojo_logo_176%402x.png 352w" src="static/8ceb13c1cedc11f744c9077b520d0c79/39223/classdojo_logo_176%402x.png" alt="ClassDojo logo" loading="eager" style="position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;object-position:center;opacity:0;transition:opacity 500ms" />
+                        </picture>
+                        <noscript>
+                            <picture>
+                                <source srcset="/static/8ceb13c1cedc11f744c9077b520d0c79/65e33/classdojo_logo_176%402x.png 100w,
+                                    /static/8ceb13c1cedc11f744c9077b520d0c79/69585/classdojo_logo_176%402x.png 200w,
+                                    /static/8ceb13c1cedc11f744c9077b520d0c79/39223/classdojo_logo_176%402x.png 352w" sizes="(max-width: 352px) 100vw, 352px" />
+                                <img loading="eager" sizes="(max-width: 352px) 100vw, 352px" srcset="/static/8ceb13c1cedc11f744c9077b520d0c79/65e33/classdojo_logo_176%402x.png 100w,
+                                    /static/8ceb13c1cedc11f744c9077b520d0c79/69585/classdojo_logo_176%402x.png 200w,
+                                    /static/8ceb13c1cedc11f744c9077b520d0c79/39223/classdojo_logo_176%402x.png 352w" src="static/8ceb13c1cedc11f744c9077b520d0c79/39223/classdojo_logo_176%402x.png" alt="ClassDojo logo" style="position:absolute;top:0;left:0;opacity:1;width:100%;height:100%;object-fit:cover;object-position:center" />
+                            </picture>
+                        </noscript>
+                    </div>
+                </a>
+                <div role="dialog" aria-modal="true">
+                    <style data-emotion="css lboq8x">
+                        .css-lboq8x {
+                            height: 14px;
+                            display: -webkit-box;
+                            display: -webkit-flex;
+                            display: -ms-flexbox;
+                            display: flex;
+                            -webkit-flex-direction: column;
+                            -ms-flex-direction: column;
+                            flex-direction: column;
+                            -webkit-box-pack: justify;
+                            -webkit-justify-content: space-between;
+                            justify-content: space-between;
+                            border: 0;
+                            background: transparent;
+                            border-radius: 5px;
+                            box-sizing: content-box;
+                            cursor: pointer;
+                            padding: 9px 10px;
+                            margin-left: auto;
+                            box-shadow: 0px 0px 20px #fff;
+                            position: relative;
+                            z-index: 1;
+                            background-color: transparent;
+                        }
+
+                        @@media screen and (min-width:1200px) {
+                            .css-lboq8x {
+                                display: none;
+                            }
+                        }</style>
+                    <button aria-expanded="false" aria-label="Menu" class="css-lboq8x e5rzbx1">
+                        <style data-emotion="css 12jtxle">
+                            .css-12jtxle {
+                                display: block;
+                                width: 22px;
+                                height: 2px;
+                                border-radius: 1px;
+                                background-color: #545382;
+                            }</style>
+                        <span class="css-12jtxle e5rzbx0"></span><span class="css-12jtxle e5rzbx0"></span><span class="css-12jtxle e5rzbx0"></span>
+                    </button>
+                    <style data-emotion="css 5jw6hl">
+                        .css-5jw6hl {
+                            display: -webkit-box;
+                            display: -webkit-flex;
+                            display: -ms-flexbox;
+                            display: flex;
+                            -webkit-flex-direction: column;
+                            -ms-flex-direction: column;
+                            flex-direction: column;
+                            -webkit-align-items: center;
+                            -webkit-box-align: center;
+                            -ms-flex-align: center;
+                            align-items: center;
+                            width: 100vw;
+                            padding: 18px 0;
+                            margin-bottom: 0;
+                            overflow: hidden;
+                            position: fixed;
+                            top: 88px;
+                            left: 0;
+                            -webkit-transform: translateY(calc(-100% - 88px));
+                            -moz-transform: translateY(calc(-100% - 88px));
+                            -ms-transform: translateY(calc(-100% - 88px));
+                            transform: translateY(calc(-100% - 88px));
+                            -webkit-transition: all 0.3s ease-in-out;
+                            transition: all 0.3s ease-in-out;
+                            background: #fff;
+                            border-bottom: 1px solid;
+                            border-color: #D3D7EC;
+                        }
+
+                        @@media screen and (min-width:1200px) {
+                            .css-5jw6hl {
+                                -webkit-flex-direction: row;
+                                -ms-flex-direction: row;
+                                flex-direction: row;
+                                width: auto;
+                                padding: 0;
+                                opacity: 1;
+                                position: static;
+                                -webkit-transform: translateY(0);
+                                -moz-transform: translateY(0);
+                                -ms-transform: translateY(0);
+                                transform: translateY(0);
+                                border-bottom: 0;
+                            }
+                        }
+
+                        @@media screen and (max-width:1199px) {
+                            .css-5jw6hl {
+                                -webkit-animation: entering 0.5s;
+                                animation: entering 0.5s;
+                                opacity: 0;
+                            }
+
+                                .css-5jw6hl > * {
+                                    display: none;
+                                }
+                        }
+
+                        @@media print {
+                            .css-5jw6hl {
+                                display: none;
+                            }
+                        }
+
+                        @@-webkit-keyframes entering {
+                            0% {
+                                opacity: 0;
+                            }
+
+                            99% {
+                                opacity: 0;
+                            }
+
+                            100% {
+                                opacity: 1;
+                            }
+                        }
+
+                        @@keyframes entering {
+                            0% {
+                                opacity: 0;
+                            }
+
+                            99% {
+                                opacity: 0;
+                            }
+
+                            100% {
+                                opacity: 1;
+                            }
+                        }</style>
+                    <ul aria-hidden="true" class="css-5jw6hl eounsk91">
+                        <style data-emotion="css 1av80no">
+                            .css-1av80no {
+                                padding: 10px 15px;
+                                list-style: none;
+                                margin-top: 0;
+                            }
+
+                            @@media screen and (min-width:1200px) {
+                                .css-1av80no {
+                                    padding: 0;
+                                }
+                            }</style>
+                        <li class="css-1av80no edbptmw0">
+                            <style data-emotion="css 1x204xj">
+                                .css-1x204xj {
+                                    background: none;
+                                    border: none;
+                                    -webkit-text-decoration: none;
+                                    text-decoration: none;
+                                    padding: 10px 15px;
+                                    cursor: pointer;
+                                }
+
+                                    .css-1x204xj:hover, .css-1x204xj:focus {
+                                        -webkit-text-decoration: none;
+                                        text-decoration: none;
+                                    }</style>
+                            @*<a class="css-1x204xj e1726gi31" href="plus/index.html">*@
+                                <style data-emotion="css 1qhg48d">
+                                    .css-1qhg48d {
+                                        color: #2C2A50;
+                                        font-weight: 500;
+                                        line-height: 22px;
+                                        font-family: proxima-nova,"Helvetica Neue",Helvetica,Arial,sans-serif;
+                                        word-break: keep-all;
+                                        white-space: nowrap;
+                                    }
+
+                                        .css-1qhg48d:hover {
+                                            color: #00B2F7;
+                                            -webkit-text-decoration: none;
+                                            text-decoration: none;
+                                        }</style>
+                                @*<span class="css-1qhg48d eounsk90">Plus</span>*@
+                           @* </a>*@
+                        </li>
+                        <li class="css-1av80no edbptmw0"><a class="css-1x204xj e1726gi31" asp-area="" asp-controller="Home" asp-action="Index" ><span class="css-1qhg48d eounsk90">Home</span></a></li>
+                        <li class="css-1av80no edbptmw0"><a class="css-1x204xj e1726gi31" asp-area="" asp-controller="Home" asp-action="Contact"><span class="css-1qhg48d eounsk90">Contact Us</span></a></li>
+                        <li class="css-1av80no edbptmw0"><a class="css-1x204xj e1726gi31" asp-area="" asp-controller="Home" asp-action="About"><span class="css-1qhg48d eounsk90">About Us</span></a></li>
+                        <li class="css-1av80no edbptmw0"><a class="css-1x204xj e1726gi31" asp-area="" asp-controller="Home" asp-action="School"><span class="css-1qhg48d eounsk90">School</span></a></li>
+                        <li class="css-1av80no edbptmw0"><a class="css-1x204xj e1726gi31" asp-area="" asp-controller="Home" asp-action="Resources"><span class="css-1qhg48d eounsk90">Resources</span></a></li>
+                         <li class="css-1av80no edbptmw0"><a class="css-1x204xj e1726gi31" asp-area="" asp-controller="Home" asp-action="FAQ"><span class="css-1qhg48d eounsk90">FAQs</span></a></li>
+                        <partial name="_LoginPartial" />
+                    </ul>
+                     
+
+                </div>
+            </div>
+        </nav>
+
+    </header>
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+
+
+
+
+
+
+
+@*
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2022 - SocialProject - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        </div>
+    </footer>*@
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+
+
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+
+    <script src="//cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+   
+</body>
+</html>
