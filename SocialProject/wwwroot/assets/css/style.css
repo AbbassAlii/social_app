@@ -17619,5 +17619,27 @@ a.badge:hover {
   display: none !important;
 }
 
+
+.login_img {
+    background-image: url("../images/bg.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+    /*filter: blur(8px);
+    -webkit-filter: blur(8px);*/
+}
+.reg_img {
+    background-image: url("../images/bg1.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+    /*filter: blur(8px);
+    -webkit-filter: blur(8px);*/
+}
+.text_color{
+    color:white
+}
 /*User CSS*/
 /*# sourceMappingURL=style.css.map */

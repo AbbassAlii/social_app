@@ -17,8 +17,24 @@ namespace SocialProject.Controllers
         {
             return View();
         }
+		public IActionResult Setting()
+		{
+			return View();
+		}
+		public IActionResult Blogs()
+		{
+			return View();
+		}
+		public IActionResult Events()
+		{
+			return View();
+		}
+		public IActionResult Notifications()
+		{
+			return View();
+		}
 
-        public IActionResult Privacy()
+		public IActionResult MyProfile()
         {
             return View();
         }

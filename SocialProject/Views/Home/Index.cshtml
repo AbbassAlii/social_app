@@ -1,6 +1,25 @@
 ﻿
-
-<!-- **************** MAIN CONTENT START **************** -->
+<style>
+	.sidebar_style{
+/*position:fixed; 
+.sidebar_style{
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  background-color: yellow;
+  padding: 50px;
+  font-size: 20px;
+	}*/
+/*width:23%;*/
+	}
+	/*@@media only screen and (max-width: 600px){
+		.sidebar_style{
+position:fixed;
+width:50%;
+	}*/
+	}
+</style>
+	<!-- **************** MAIN CONTENT START **************** -->
 <main>
 
 	<!-- Container START -->
@@ -27,7 +46,7 @@
 						</div>
 
 						<!-- Offcanvas body -->
-						<div class="offcanvas-body d-block px-2 px-lg-0">
+						<div class="offcanvas-body d-block px-2 px-lg-0 sidebar_style" >
 							<!-- Card START -->
 							<div class="card overflow-hidden">
 								<!-- Cover image -->
@@ -52,19 +71,9 @@
 												<small>Post</small>
 											</div>
 											<!-- Divider -->
-											<div class="vr"></div>
-											<!-- User stat item -->
-											<div>
-												<h6 class="mb-0">2.5K</h6>
-												<small>Followers</small>
-											</div>
-											<!-- Divider -->
-											<div class="vr"></div>
-											<!-- User stat item -->
-											<div>
-												<h6 class="mb-0">365</h6>
-												<small>Following</small>
-											</div>
+											@*<div class="vr"></div>*@
+											
+											
 										</div>
 										<!-- User stat END -->
 									</div>
@@ -75,25 +84,25 @@
 									<!-- Side Nav START -->
 									<ul class="nav nav-link-secondary flex-column fw-bold gap-2">
 										<li class="nav-item">
-											<a class="nav-link" href="my-profile.html"> <img class="me-2 h-20px fa-fw" src="assets/images/icon/home-outline-filled.svg" alt=""><span>Feed </span></a>
+											<a class="nav-link" href="@Url.Action("Index")"> <img class="me-2 h-20px fa-fw" src="assets/images/icon/home-outline-filled.svg" alt=""><span>New Feeds </span></a>
 										</li>
-										<li class="nav-item">
+										@*<li class="nav-item">
 											<a class="nav-link" href="my-profile-connections.html"> <img class="me-2 h-20px fa-fw" src="assets/images/icon/person-outline-filled.svg" alt=""><span>Connections </span></a>
+										</li>*@
+										<li class="nav-item">
+											<a class="nav-link" href="@Url.Action("Blogs")"> <img class="me-2 h-20px fa-fw" src="assets/images/icon/earth-outline-filled.svg" alt=""><span>Blogs </span></a>
 										</li>
 										<li class="nav-item">
-											<a class="nav-link" href="blog.html"> <img class="me-2 h-20px fa-fw" src="assets/images/icon/earth-outline-filled.svg" alt=""><span>Latest News </span></a>
+											<a class="nav-link" href="@Url.Action("Events")"> <img class="me-2 h-20px fa-fw" src="assets/images/icon/calendar-outline-filled.svg" alt=""><span>Events </span></a>
 										</li>
-										<li class="nav-item">
-											<a class="nav-link" href="events.html"> <img class="me-2 h-20px fa-fw" src="assets/images/icon/calendar-outline-filled.svg" alt=""><span>Events </span></a>
-										</li>
-										<li class="nav-item">
+									@*	<li class="nav-item">
 											<a class="nav-link" href="groups.html"> <img class="me-2 h-20px fa-fw" src="assets/images/icon/chat-outline-filled.svg" alt=""><span>Groups </span></a>
+										</li>*@
+										<li class="nav-item">
+											<a class="nav-link" href="@Url.Action("Notifications")"> <img class="me-2 h-20px fa-fw" src="assets/images/icon/notification-outlined-filled.svg" alt=""><span>Notifications </span></a>
 										</li>
 										<li class="nav-item">
-											<a class="nav-link" href="notifications.html"> <img class="me-2 h-20px fa-fw" src="assets/images/icon/notification-outlined-filled.svg" alt=""><span>Notifications </span></a>
-										</li>
-										<li class="nav-item">
-											<a class="nav-link" href="settings.html"> <img class="me-2 h-20px fa-fw" src="assets/images/icon/cog-outline-filled.svg" alt=""><span>Settings </span></a>
+											<a class="nav-link" href="@Url.Action("Setting")"> <img class="me-2 h-20px fa-fw" src="assets/images/icon/cog-outline-filled.svg" alt=""><span>Settings </span></a>
 										</li>
 									</ul>
 									<!-- Side Nav END -->
@@ -101,7 +110,7 @@
 								<!-- Card body END -->
 								<!-- Card footer -->
 								<div class="card-footer text-center py-2">
-									<a class="btn btn-link btn-sm" href="my-profile.html">View Profile </a>
+									<a class="btn btn-link btn-sm" href="@Url.Action("MyProfile")">View Profile </a>
 								</div>
 							</div>
 							<!-- Card END -->
@@ -138,20 +147,7 @@
 			<!-- Main content START -->
 			<div class="col-md-8 col-lg-6 vstack gap-4">
 
-				<!-- Story START -->
-				<div class="d-flex gap-2 mb-n3">
-					<div class="position-relative">
-						<div class="card border border-2 border-dashed h-150px px-4 px-sm-5 shadow-none d-flex align-items-center justify-content-center text-center">
-							<div>
-								<a class="stretched-link btn btn-light rounded-circle icon-md" href="#!"><i class="fa-solid fa-plus"></i></a>
-								<h6 class="mt-2 mb-0 small">Post a Story</h6>
-							</div>
-						</div>
-					</div>
-
-					<!-- Stories -->
-					<div id="stories" class="storiesWrapper stories-square stories user-icon carousel scroll-enable"></div>
-				</div>
+			
 				<!-- Story END -->
 				<!-- Share feed START -->
 				<div class="card card-body">
