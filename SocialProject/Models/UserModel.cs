@@ -20,11 +20,13 @@ namespace SocialProject.Models
         public string? UpdateBy { get; set; }
         public string? UpdateDate { get; set; }
         public string? Status { get; set; }
-        public String? Course { get; set; }
-        public string? Qualification { get; set; }
-        
-       
-    }
+ 
+
+		// Navigation property for one-to-many relationship
+		public ICollection<PostModel> Posts { get; set; }
+
+
+	}
 
    
 }
