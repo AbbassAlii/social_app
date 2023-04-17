@@ -65,11 +65,12 @@ namespace SocialProject.Controllers
 
                 HttpContext.Session.SetString("UserName", Found.UserName);
                 HttpContext.Session.SetString("Password", Found.Password);
+				HttpContext.Session.SetInt32("UserId", Found.UserId);
 
-                
 
 
-                return RedirectToActionPermanent("Index", "Home");
+
+				return RedirectToActionPermanent("Index", "Home");
             }
             return View(usr);
         }

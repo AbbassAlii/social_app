@@ -1,6 +1,7 @@
 ﻿@{
     Layout = null;
 }
+@model SocialProject.Models.UserModel
 <!DOCTYPE html>
 <html lang="en">
 
@@ -108,16 +109,27 @@
 							Don't have an account?<a href="@Url.Action("Add")" style="color: #73b4c7;font-weight: 600;text-transform: uppercase;"> Click here to sign up</a>
 						</p>
 						<!-- Form START -->
-						<form class="mt-sm-4">
+						<form class="mt-sm-4" asp-action="login">
 							<!-- Email -->
+							 @using (Html.BeginForm("login", "User", FormMethod.Post))
+                {
+
+                    if (ViewBag.LoginStatus != null)
+                    {
+                        if (ViewBag.LoginStatus == 0)
+                        {
+                                        <div class="alert alert-danger">Invalid login detail</div>
+                        }
+                    }
+                
 							<div class="mb-3 input-group-lg text_color">
-								<input type="email" class="form-control" placeholder="Enter email">
+								<input type="email" class="form-control" placeholder="Enter email" asp-for="Email">
 							</div>
 							<!-- New password -->
 							<div class="mb-3 position-relative">
 								<!-- Password -->
 								<div class="input-group input-group-lg text_color">
-									<input class="form-control fakepassword" type="password" id="psw-input" placeholder="Enter new password">
+									<input asp-for="Password" class="form-control fakepassword" type="password" id="psw-input" placeholder="Enter new password">
 									<span class="input-group-text p-0" style="background-color: #0f6fec;">
 										<i class="fakepasswordicon fa-solid fa-eye-slash cursor-pointer p-2 w-40px text_color"></i>
 									</span>
@@ -133,10 +145,13 @@
 							</div>
 							<!-- Button -->
 							<div class="d-grid">
-								<a asp-area="" asp-controller="Home" asp-action="Index" class="btn btn-lg btn-primary">Login</a>
+									<button class="btn btn-lg btn-primary value="submit" type="submit">
+										Login
+									</button>
 							</div>
 							<!-- Copyright -->
 							<p class="mb-0 mt-3 text_color">©2023 All rights reserved</p>
+							}
 						</form>
 						<!-- Form END -->
 					</div>
