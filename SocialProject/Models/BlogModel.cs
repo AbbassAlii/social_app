@@ -16,5 +16,8 @@ namespace SocialProject.Models
 		public string? UpdateDate { get; set; }
 		public string? Status { get; set; }
 		public string UserID { get; set; }
-	}
+        public int UserCommentId { get; set; }
+        //public ICollection<UserModel> User { get; set; }//[user many blog one]
+       // public ICollection<UserCommentModel> UserComment { get; set; }
+    }
 }

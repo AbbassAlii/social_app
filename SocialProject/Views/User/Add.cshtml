@@ -1,6 +1,8 @@
 ﻿@{
 	Layout = null;
 }
+@model SocialProject.Models.UserModel
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -110,41 +112,45 @@
 							Already have an account?<a href="@Url.Action("login")" style="color: #73b4c7;font-weight: 600;text-transform: uppercase;">  Sign in here</a>
 						</p>
 						<!-- Form START -->
-						<form class="mt-sm-4">
+						<form class="mt-sm-4" asp-action="Add">
 							<!-- Email -->
 							<div class="mb-3 input-group-lg text_color">
-								<input type="text" class="form-control" placeholder="Enter Name">
+								<input asp-for="UserName" type="text" class="form-control" placeholder="Enter Name">
 								@*<small>We'll never share your email with anyone else.</small>*@
+							</div>
+							<div class="mb-3 position-relative">
+								<!-- Password -->
+								<div class="input-group input-group-lg text_color">
+									
+									<select class="form-select" aria-label="Default select example" asp-for="Gender" required>
+										<option selected> Select Gender</option>
+										<option value="Male">Male</option>
+										<option value="Female">Female</option>
+									</select>
+									<span asp-validation-for="Gender" class="text-danger"></span>
+								</div>
 							</div>
 								<!-- Email -->
 							<div class="mb-3 input-group-lg text_color">
-								<input type="text" class="form-control" placeholder="Enter City">
+								<input asp-for="Address" type="text" class="form-control" placeholder="Enter City">
 								@*<small>We'll never share your email with anyone else.</small>*@
 							</div>
 							<!-- Email -->
 							<div class="mb-3 input-group-lg text_color">
-								<input type="email" class="form-control" placeholder="Enter email">
+								<input asp-for="Email" type="email" class="form-control" placeholder="Enter email">
 								@*<small>We'll never share your email with anyone else.</small>*@
 							</div>
 							<!-- New password -->
 							<div class="mb-3 position-relative">
 								<!-- Password -->
 								<div class="input-group input-group-lg text_color">
-									<input class="form-control fakepassword" type="password" id="psw-input" placeholder="Enter new password">
+									<input asp-for="Password" class="form-control fakepassword" type="password" id="psw-input" placeholder="Enter new password">
 									<span class="input-group-text p-0" style="background-color: #0f6fec;">
 										<i class="fakepasswordicon fa-solid fa-eye-slash cursor-pointer p-2 w-40px text_color"></i>
 									</span>
 								</div>
 							</div>
-							<div class="mb-3 position-relative">
-								<!-- Password -->
-								<div class="input-group input-group-lg text_color">
-									<input class="form-control fakepassword" type="password" id="psw-input" placeholder="Enter Confirm password">
-									<span class="input-group-text p-0" style="background-color: #0f6fec;">
-										<i class="fakepasswordicon fa-solid fa-eye-slash cursor-pointer p-2 w-40px text_color"></i>
-									</span>
-								</div>
-							</div>
+							
 						@*	</div>
 							<div class="d-flex mt-1">
                 <div id="pswmeter-message" class="rounded">Write your password...</div>
