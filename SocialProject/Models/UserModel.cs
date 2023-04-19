@@ -23,11 +23,14 @@ namespace SocialProject.Models
  
 
 		// Navigation property for one-to-many relationship
-		public ICollection<PostModel> Posts { get; set; }
+		//public ICollection<PostModel> Posts { get; set; }
+        //public PostModel posts { get; set; } //[ many user 1 post]
+        //public EventModel eventModel { get; set; } //[ many user 1 event]
+
+        //public BlogModel blogModel { get; set; } //[ many user 1 event]
+        //public UserCommentModel UserCommentModel { get; set; }
+    }
 
 
-	}
-
-   
 }
 

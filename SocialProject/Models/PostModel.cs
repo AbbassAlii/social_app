@@ -16,12 +16,7 @@ namespace SocialProject.Models
 		public string? UpdateBy { get; set; }
 		public string? UpdateDate { get; set; }
 		public string? Status { get; set; }
-
-		// Foreign key property
-		public int UserID { get; set; }
-
-		// Navigation property for the related user
-		public UserModel User { get; set; }
-
+		public string UserID { get; set; }
+		
 	}
 }

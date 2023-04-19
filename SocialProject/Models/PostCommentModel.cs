@@ -12,8 +12,8 @@ namespace SocialProject.Models
 		public string? CreateDate { get; set; }
 		public string? UpdateBy { get; set; }
 		public string? UpdateDate { get; set; }
-		//public string UserID { get; set; }
+        //public string UserID { get; set; }
 		//public string PostID { get; set; }
 		//public string BlogID { get; set; }
-	}
+    }
 }
