@@ -9,8 +9,7 @@ namespace SocialProject.Models
 		public string? Title { get; set; }
 		public string? Description { get; set; }
 		public string? Location { get; set; }
-
-		//public string? Attachment { get; set; }
+		public string? Attachment { get; set; }
 		public string? CreateBy { get; set; }
 		public string? CreateDate { get; set; }
 		public string? UpdateBy { get; set; }
