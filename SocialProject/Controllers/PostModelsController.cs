@@ -1,22 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.IO;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using SocialProject.Data;
 using SocialProject.Models;
-
 namespace SocialProject.Controllers
 {
     public class PostModelsController : Controller
     {
         private readonly ApplicationDbContext _context;
-
-        public PostModelsController(ApplicationDbContext context)
+        private readonly ILogger<PostModelsController> _logger;
+        private readonly IWebHostEnvironment _environment;
+        public PostModelsController(ApplicationDbContext context, ILogger<PostModelsController> logger, IWebHostEnvironment environment)
         {
             _context = context;
+            _logger = logger;
+            _environment = environment;
         }
 
         // GET: PostModels
@@ -56,7 +58,7 @@ namespace SocialProject.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("PostId,Title,Description,Location,Activity,Attachment,CreateBy,CreateDate,UpdateBy,UpdateDate,Status,UserId")] PostModel postModel)
+        public async Task<IActionResult> Create(PostModel postModel, IFormFile file)
         {
             int? userId = HttpContext.Session.GetInt32("UserId");
             //if (userId.HasValue)
@@ -66,10 +68,30 @@ namespace SocialProject.Controllers
             if (ModelState.IsValid && userId.HasValue)
             {
                 postModel.UserId = userId.Value;
+                if (file != null && file.Length > 0)
+                {
+                    // save file to the server
+                    var uploads = Path.Combine(_environment.WebRootPath, "uploads");
+                    if (!Directory.Exists(uploads))
+                    {
+                        Directory.CreateDirectory(uploads);
+                    }
+
+                    var fileName = Path.GetFileName(file.FileName);
+                    using (var fileStream = new FileStream(Path.Combine(uploads, fileName), FileMode.Create))
+                    {
+                        await file.CopyToAsync(fileStream);
+                        postModel.Attachment = Path.Combine(uploads, fileName);
+                    }
+                }
+
                 _context.Add(postModel);
                 await _context.SaveChangesAsync();
+
                 return RedirectToAction(nameof(Index));
             }
+
+
             return View(postModel);
         }
 

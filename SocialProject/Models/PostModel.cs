@@ -7,6 +7,7 @@ namespace SocialProject.Models
 		[Key]
 		public int PostId { get; set; }
 		public string? Title { get; set; }
+
 		public string? Description { get; set; }
 		public string? Location { get; set; }
 		public string? Activity { get; set; }
@@ -16,7 +17,7 @@ namespace SocialProject.Models
 		public string? UpdateBy { get; set; }
 		public string? UpdateDate { get; set; }
 		public string? Status { get; set; }
-		public string UserID { get; set; }
+		public int ? UserId { get; set; }
 		
 	}
 }
