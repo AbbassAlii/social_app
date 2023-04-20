@@ -1776,10 +1776,11 @@
 					<a class="icon-md bg-success bg-opacity-10 text-success rounded-circle" href="#" data-bs-toggle="tooltip" data-bs-placement="top" title="Select File" id="fileIcon">
 						<i class="bi bi-image-fill"></i>
 					</a>
-					 <label asp-for="Attachment"></label>
+					 
 					<!-- Add an input element to allow file selection, but hide it with CSS -->
-					<input type="file" name="file" class="form-control-file" />
+					<input type="file" id="fileInput" name="file" class="form-control-file" style="display:none" multiple/>
 					<!-- Add a container to display the selected files -->
+
 					<div id="fileDisplayContainer"></div>
 
 					@*<a class="icon-md bg-info bg-opacity-10 text-info rounded-circle" href="#" data-bs-toggle="tooltip" data-bs-placement="top" title="Video"> <i class="bi bi-camera-reels-fill"></i> </a>*@
