@@ -529,13 +529,39 @@
                                            
                                             <td>
                                                 
-                                               
+                                                <div id="b" value="activate" > 
+                                                <form method="post" asp-action="Activate" asp-route-id="@item.PostId">
+                                                    <button  type="submit">Approve</button>
+                                                </form></div>
+                                                @*<div id="myDiv">
+                                                    <p>This is the content of my div.</p>
+                                                    <button id="removeButton">Remove</button>
+                                                </div>*@
 
-                                                
+                                                <div id="a" value="1">
                                                     @Html.DisplayFor(modelItem => item.Status)
-                                               
+                                                </div>
                                              
-                                            </td>                                 
+                                            </td>
+
+
+                                           @* @section Scripts {
+                                            @{
+                                                    await Html.RenderPartialAsync("_ValidationScriptsPartial");
+                                                }
+                                                <script type="text/javascript">
+                                                    $(function () {
+                                                        //$("#b").hide();
+                                                        //$("#a").hide();
+                                                        $("#b").change(function () {
+                                                            if ($(this).val() == "Inactivate") {
+                                                                $("#b").show();
+                                                                //$("#a").remove();
+                                                            
+                                                        });
+                                                        
+                                                    });
+                                                </script>}*@
                                                 
 
                                             <td>
@@ -598,7 +624,20 @@
 *@
 
 
-  
+    @section Scripts {
+        @{
+            await Html.RenderPartialAsync("_ValidationScriptsPartial");
+        }
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+        <script type="text/javascript">
+            $(function () {
+                $("#b").click(function () {
+                    $("#b").remove();
+                });
+            });
+        </script>
+    }
 
 
 

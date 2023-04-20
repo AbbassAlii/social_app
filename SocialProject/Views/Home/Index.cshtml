@@ -1,4 +1,5 @@
-﻿
+﻿@model SocialProject.Models.PostModel
+
 <style>
 	.sidebar_style{
 	 position: fixed;
@@ -1764,20 +1765,20 @@
 					<div class="avatar avatar-xs me-2">
 						<img class="avatar-img rounded-circle" src="assets/images/avatar/03.jpg" alt="">
 					</div>
-					<!-- Feed box  -->
-					<form class="w-100">
-						<textarea class="form-control pe-4 fs-3 lh-1 border-0" rows="4" placeholder="Share your thoughts..." autofocus></textarea>
-					</form>
-				</div>
+					<!-- Feed box post -->
+		  <form class="w-100" asp-action="Create" method="post">
+						<textarea asp-for="Description" class="form-control pe-4 fs-3 lh-1 border-0" rows="4" placeholder="Share your thoughts..." autofocus></textarea>
+				
+				
 				<!-- Feed rect START -->
-				<div class="hstack gap-2">
+								<div class="hstack gap-2">
 					<!-- Add the photo icon with the necessary attributes -->
 					<a class="icon-md bg-success bg-opacity-10 text-success rounded-circle" href="#" data-bs-toggle="tooltip" data-bs-placement="top" title="Select File" id="fileIcon">
 						<i class="bi bi-image-fill"></i>
 					</a>
-
+					 <label asp-for="Attachment"></label>
 					<!-- Add an input element to allow file selection, but hide it with CSS -->
-					<input type="file" id="fileInput" style="display:none" multiple>
+							<input type="file" id="fileInput" class="form-control-file" style="display:none" multiple>
 
 					<!-- Add a container to display the selected files -->
 					<div id="fileDisplayContainer"></div>
@@ -1789,27 +1790,30 @@
 					@*<a class="icon-md bg-primary bg-opacity-10 text-primary rounded-circle" href="#" data-bs-toggle="tooltip" data-bs-placement="top" title="Tag people on top"> <i class="bi bi-tag-fill"></i> </a>*@
 				</div>
 				<!-- Feed rect END -->
-			</div>
+			
 			<!-- Modal feed body END -->
 			<!-- Modal feed footer -->
-			<div class="modal-footer row justify-content-between">
+								<div class="modal-footer row justify-content-between">
 				<!-- Select -->
-				<div class="col-lg-3">
-					<select class="form-select js-choice choice-select-text-none" data-position="top" data-search-enabled="false">
+								<div class="col-lg-3">
+								<select class="form-select js-choice choice-select-text-none" data-position="top" data-search-enabled="false">
 						<option value="PB">Public</option>
 						<option value="PV">Friends</option>
 						<option value="PV">Only me</option>
 						<option value="PV">Custom</option>
-					</select>
+									</select>
 					<!-- Button -->
-				</div>
-				<div class="col-lg-8 text-sm-end">
+										</div>
+								<div class="col-lg-8 text-sm-end">
 					<button type="button" class="btn btn-danger-soft me-2"> <i class="bi bi-camera-video-fill pe-1"></i> Live video</button>
-					<button type="button" class="btn btn-success-soft">Post</button>
-				</div>
-			</div>
+					<button type="submit" class="btn btn-success-soft">Post</button>
+								</div>
+							</div>
+	    	</form>
 			<!-- Modal feed footer -->
+			</div></div>
 
+			
 		</div>
 	</div>
 </div>

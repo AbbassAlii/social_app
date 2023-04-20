@@ -248,7 +248,7 @@
 								<!-- Info -->
 								<div>
 									<div class="nav nav-divider">
-										<h6 class="nav-item card-title mb-0"> <a href="#!"> Lori Ferguson </a></h6>
+										<h6 class="nav-item card-title mb-0"> <a href="#!"> @*@Context.Session.GetString("UserName")*@ </a></h6>
 										<span class="nav-item small"> 2hr</span>
 									</div>
 									<p class="mb-0 small">Web Developer at Webestica</p>
@@ -275,7 +275,7 @@
 					<!-- Card header END -->
 					<!-- Card body START -->
 					<div class="card-body">
-						<p>I'm thrilled to share that I've completed a graduate certificate course in project management with the president's honor roll.</p>
+						<p asp ="Description"></p>
 						<!-- Card img -->
 						<img class="card-img" src="assets/images/post/3by2/01.jpg" alt="Post">
 						<!-- Feed react START -->
@@ -1776,10 +1776,11 @@
 					<a class="icon-md bg-success bg-opacity-10 text-success rounded-circle" href="#" data-bs-toggle="tooltip" data-bs-placement="top" title="Select File" id="fileIcon">
 						<i class="bi bi-image-fill"></i>
 					</a>
-					 <label asp-for="Attachment"></label>
+					 
 					<!-- Add an input element to allow file selection, but hide it with CSS -->
-					<input type="file" name="file" class="form-control-file" />
+					<input asp-for="Attachment" type="file" id="fileInput" name="attachments" class="form-control-file" style="display:none" multiple/>
 					<!-- Add a container to display the selected files -->
+
 					<div id="fileDisplayContainer"></div>
 
 					@*<a class="icon-md bg-info bg-opacity-10 text-info rounded-circle" href="#" data-bs-toggle="tooltip" data-bs-placement="top" title="Video"> <i class="bi bi-camera-reels-fill"></i> </a>*@

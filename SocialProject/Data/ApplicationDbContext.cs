@@ -17,6 +17,10 @@ namespace SocialProject.Data
 
         }
         public DbSet<UserModel> UserModels { get; set; }
-        public IEnumerable<object> Usermodel { get; internal set; }
-    }
+       // public IEnumerable<object> Usermodel { get; internal set; }
+		public DbSet<PostModel> PostModel{ get; set; }
+		//public IEnumerable<object> PostModelss { get; internal set; }
+
+
+	}
 }
