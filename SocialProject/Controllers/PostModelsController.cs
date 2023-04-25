@@ -113,7 +113,7 @@ namespace SocialProject.Controllers
 				_context.Add(postModel);
                 await _context.SaveChangesAsync();
 
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Create));
             
 
             
