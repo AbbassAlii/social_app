@@ -112,14 +112,17 @@
 							Already have an account?<a href="@Url.Action("login")" style="color: #73b4c7;font-weight: 600;text-transform: uppercase;">  Sign in here</a>
 						</p>
 						<!-- Form START -->
-						<form class="mt-sm-4" asp-action="Add">
-							<!-- Email -->
+						<form class="mt-sm-4" asp-action="Add" method="post" enctype="multipart/form-data">
+							<!--Full Name -->
 							<div class="mb-3 input-group-lg text_color">
-								<input asp-for="UserName" type="text" class="form-control" placeholder="Enter Name">
+								<input asp-for="FullName" type="text" class="form-control" placeholder="Enter Full Name">
 								@*<small>We'll never share your email with anyone else.</small>*@
-							</div>
+							</div><!--user Name -->
+							@*<div class="mb-3 input-group-lg text_color">
+								<input asp-for="UserName" type="text" class="form-control" placeholder="Enter User Name">
+							</div>*@
 							<div class="mb-3 position-relative">
-								<!-- Password -->
+								<!-- Gender -->
 								<div class="input-group input-group-lg text_color">
 									
 									<select class="form-select" aria-label="Default select example" asp-for="Gender" required>
@@ -130,9 +133,14 @@
 									<span asp-validation-for="Gender" class="text-danger"></span>
 								</div>
 							</div>
-								<!-- Email -->
+								<!-- Address -->
 							<div class="mb-3 input-group-lg text_color">
 								<input asp-for="Address" type="text" class="form-control" placeholder="Enter City">
+								@*<small>We'll never share your email with anyone else.</small>*@
+							</div>
+							<!-- File -->
+							<div class="mb-3 input-group-lg text_color">
+								<input asp-for="Attachment" type="file" name="file" class="form-control" >
 								@*<small>We'll never share your email with anyone else.</small>*@
 							</div>
 							<!-- Email -->

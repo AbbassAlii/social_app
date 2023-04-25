@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System.Collections.Generic;
+using System.IO;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -21,20 +22,20 @@ namespace SocialProject.Controllers
             _environment = environment;
         }
 
-      
-        public async Task<IActionResult> Index()
-        {
-            return _context.PostModel != null ?
-                        View(await _context.PostModel.ToListAsync()) :
-                        Problem("Entity set 'ApplicationDbContext.PostModel'  is null.");
-        }
-        //public IActionResult Index()
-        //{
-        //    // Get approved posts
-        //    var activatePosts = _context.PostModel.Where(p => p.Status == "activate");
 
-        //    return View(activatePosts);
+        //public async Task<IActionResult> Index()
+        //{
+        //    return _context.PostModel != null ?
+        //                View(await _context.PostModel.ToListAsync()) :
+        //                Problem("Entity set 'ApplicationDbContext.PostModel'  is null.");
         //}
+        public IActionResult Index()
+        {
+            // Get approved posts
+            var activatePosts = _context.PostModel.Where(p => p.Status == "activate");
+
+            return View(activatePosts);
+        }
         // GET: PostModels/Details/5
         public async Task<IActionResult> Details(int? id)
         {
@@ -64,46 +65,52 @@ namespace SocialProject.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("PostId,Title,Description,Location,Activity,UserId")] PostModel postModel, List<IFormFile> attachments)
+        public async Task<IActionResult> Create(PostModel postModel, IList<IFormFile> files)
         {
-           
-                // Set the UserId property to the current user's ID
-                int? userId = HttpContext.Session.GetInt32("UserId");
-                if (userId.HasValue)
-                {
-                    postModel.UserId = userId.Value;
-                }
+            int? userId = HttpContext.Session.GetInt32("UserId");
+            //if (userId.HasValue)
+            //{
+            //    postModel.UserId = userId.Value; // or postModel.UserId = userId.Value; if UserId is an int property
+            //}
+            if (userId.HasValue)
+            {
 
-                // Create a list to hold the attachment file paths
-                List<string> attachmentPaths = new List<string>();
-
-                // Loop through each file in the Attachments collection
-                foreach (var file in attachments)
+                postModel.UserId = userId.Value;
+                foreach (var file in files)
                 {
                     if (file != null && file.Length > 0)
                     {
-                        // Generate a unique filename
-                        var fileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
-
-                        // Get the file path where the file will be saved
-                        var filePath = Path.Combine(_environment.WebRootPath, "uploads", fileName);
-
-                        // Save the file to the file system
-                        using (var stream = new FileStream(filePath, FileMode.Create))
+                        // save file to the server
+                        var uploads = Path.Combine(_environment.WebRootPath, "uploads");
+                        if (!Directory.Exists(uploads))
                         {
-                            await file.CopyToAsync(stream);
+                            Directory.CreateDirectory(uploads);
                         }
 
-                        // Add the file path to the list of attachment paths
-                        attachmentPaths.Add("/uploads/" + fileName);
+                        var fileName = Path.GetFileName(file.FileName);
+                        using (var fileStream = new FileStream(Path.Combine(uploads, fileName), FileMode.Create))
+                        {
+                            await file.CopyToAsync(fileStream);
+
+                            if (postModel.Attachment == "" || postModel.Attachment == null)
+                            {
+                                postModel.Attachment = fileName;
+                            }
+                            else
+                            {
+
+                                postModel.Attachment = postModel.Attachment + "," + fileName;
+                            }
+                        }
                     }
+
                 }
+				}
 
-                // Set the Attachment property to the concatenated list of attachment paths
-                postModel.Attachment = string.Join(",", attachmentPaths);
 
-                // Save the post to the database
-                _context.Add(postModel);
+
+
+				_context.Add(postModel);
                 await _context.SaveChangesAsync();
 
                 return RedirectToAction(nameof(Index));
@@ -234,7 +241,7 @@ namespace SocialProject.Controllers
         {
             // Get all pending posts
             var pendingPosts = await _context.PostModel
-                .Where(p => p.Status == "Inactivate")
+                .Where(p => p.Status == "Inactive")
                 .ToListAsync();
 
             // Pass the pending posts to the view
