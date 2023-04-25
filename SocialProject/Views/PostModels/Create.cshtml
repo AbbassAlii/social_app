@@ -100,10 +100,10 @@
 									<div class="text-center">
 										<!-- Avatar -->
 										<div class="avatar avatar-lg mt-n5 mb-3">
-											<a href="#!"><img class="avatar-img rounded border border-white border-3" src="assets/images/avatar/07.jpg" alt=""></a>
+											<a href="#!"><img class="avatar-img rounded border border-white border-6" src="@Context.Session.GetString("Attachment")" alt=""></a>
 										</div>
 										<!-- Info -->
-										<h5 class="mb-0"> <a href="#!">Sam Lanson </a> </h5>
+										<h5 class="mb-0"> <a href="#!">@Context.Session.GetString("UserName")</a> </h5>
 										<small>Web Developer at Webestica</small>
 										<p class="mt-3">I'd love to change the world, but they won’t give me the source code.</p>
 
@@ -196,10 +196,7 @@
 				<!-- Share feed START -->
 				<div class="card card-body">
 					<div class="d-flex mb-3">
-						<!-- Avatar -->
-						<div class="avatar avatar-xs me-2">
-							<a href="#"> <img class="avatar-img rounded-circle" src="assets/images/avatar/03.jpg" alt=""> </a>
-						</div>
+						
 						<!-- Post input -->
 						<form class="w-100">
 							<textarea class="form-control pe-4 border-0" rows="2" data-autoresize placeholder="Share your thoughts..." data-bs-toggle="modal" data-bs-target="#modalCreateFeed"></textarea>
@@ -1761,10 +1758,8 @@
 			<div class="modal-body">
 				<!-- Add Feed -->
 				<div class="d-flex mb-3">
-					<!-- Avatar -->
-					<div class="avatar avatar-xs me-2">
-						<img class="avatar-img rounded-circle" src="assets/images/avatar/03.jpg" alt="">
-					</div>
+				
+
 					<!-- Feed box post -->
 					<form class="w-100" asp-action="Create" method="post" enctype="multipart/form-data">
 						<textarea asp-for="Description" class="form-control pe-4 fs-3 lh-1 border-0" rows="4" placeholder="Share your thoughts..." autofocus></textarea>
@@ -1778,17 +1773,12 @@
 					</a>
 					 
 					<!-- Add an input element to allow file selection, but hide it with CSS -->
-					<input type="file" id="fileInput" name="file" class="form-control-file" style="display:none" multiple/>
+					<input type="file" id="fileInput" name="files" class="form-control-file" style="display:none" multiple/>
 					<!-- Add a container to display the selected files -->
 
 					<div id="fileDisplayContainer"></div>
-
-					@*<a class="icon-md bg-info bg-opacity-10 text-info rounded-circle" href="#" data-bs-toggle="tooltip" data-bs-placement="top" title="Video"> <i class="bi bi-camera-reels-fill"></i> </a>*@
-					@*<a class="icon-md bg-danger bg-opacity-10 text-danger rounded-circle" href="#" data-bs-toggle="tooltip" data-bs-placement="top" title="Events"> <i class="bi bi-calendar2-event-fill"></i> </a>*@
-					@*<a class="icon-md bg-warning bg-opacity-10 text-warning rounded-circle" href="#" data-bs-toggle="tooltip" data-bs-placement="top" title="Feeling/Activity"> <i class="bi bi-emoji-smile-fill"></i> </a>*@
 					<a class="icon-md bg-light text-secondary rounded-circle" href="#" data-bs-toggle="tooltip" data-bs-placement="top" title="Check in"> <i class="bi bi-geo-alt-fill"></i> </a>
-					@*<a class="icon-md bg-primary bg-opacity-10 text-primary rounded-circle" href="#" data-bs-toggle="tooltip" data-bs-placement="top" title="Tag people on top"> <i class="bi bi-tag-fill"></i> </a>*@
-				</div>
+					</div>
 				<!-- Feed rect END -->
 			
 			<!-- Modal feed body END -->
@@ -1796,16 +1786,10 @@
 								<div class="modal-footer row justify-content-between">
 				<!-- Select -->
 								<div class="col-lg-3">
-								<select class="form-select js-choice choice-select-text-none" data-position="top" data-search-enabled="false">
-						<option value="PB">Public</option>
-						<option value="PV">Friends</option>
-						<option value="PV">Only me</option>
-						<option value="PV">Custom</option>
-									</select>
+								
 					<!-- Button -->
 										</div>
 								<div class="col-lg-8 text-sm-end">
-					<button type="button" class="btn btn-danger-soft me-2"> <i class="bi bi-camera-video-fill pe-1"></i> Live video</button>
 					<button type="submit" class="btn btn-success-soft">Post</button>
 								</div>
 							</div>
