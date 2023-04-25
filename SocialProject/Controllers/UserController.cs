@@ -9,13 +9,14 @@ namespace SocialProject.Controllers
     { 
         private readonly ILogger<UserController> _logger;
         private readonly ApplicationDbContext _applicationDb;
+		private readonly IWebHostEnvironment _environment;
 
-
-    public UserController(ILogger<UserController> logger, ApplicationDbContext applicationDb)
+		public UserController(ILogger<UserController> logger, IWebHostEnvironment environment, ApplicationDbContext applicationDb)
     {
         _logger = logger;
         _applicationDb = applicationDb;
-    }
+			_environment = environment;
+		}
     
         public IActionResult Index()
         {
@@ -30,14 +31,30 @@ namespace SocialProject.Controllers
                 return View();
             }
             [HttpPost]
-            public IActionResult Add(UserModel usr)
+		public async Task<IActionResult> Add(UserModel usr, IFormFile file)
             {
+			
+            if (file != null && file.Length > 0)
+			{
+				// save file to the server
+				var uploads = Path.Combine(_environment.WebRootPath, "uploads");
+				if (!Directory.Exists(uploads))
+				{
+					Directory.CreateDirectory(uploads);
+				}
 
-                _applicationDb.Add(usr);
+				var fileName = Path.GetFileName(file.FileName);
+				using (var fileStream = new FileStream(Path.Combine(uploads, fileName), FileMode.Create))
+				{
+					await file.CopyToAsync(fileStream);
+					usr.Attachment =  fileName;
+				}
+			}
+			_applicationDb.Add(usr);
                 _applicationDb.SaveChanges();
 
 
-            return RedirectToActionPermanent("Index", "Home");
+            return RedirectToActionPermanent("login", "User");
         }
 
 
@@ -63,14 +80,15 @@ namespace SocialProject.Controllers
             else
             {
 
-                HttpContext.Session.SetString("UserName", Found.UserName);
+                HttpContext.Session.SetString("UserName", Found.FullName);
                 HttpContext.Session.SetString("Password", Found.Password);
+                HttpContext.Session.SetString("Attachment", "/Uploads/"+Found.Attachment);
 				HttpContext.Session.SetInt32("UserId", Found.UserId);
 
 
 
 
-				return RedirectToActionPermanent("Index", "Home");
+				return RedirectToActionPermanent("Create", "PostModels");
             }
             return View(usr);
         }
