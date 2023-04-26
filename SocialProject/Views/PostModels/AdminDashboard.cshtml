@@ -529,18 +529,18 @@
                                            
                                             <td>
                                                 
-                                                <div id="b" value="activate" > 
+                                                @*<div id="b" value="activate" > *@
                                                 <form method="post" asp-action="Activate" asp-route-id="@item.PostId">
                                                     <button  type="submit">Approve</button>
-                                                </form></div>
+                                                </form>@*</div>*@
                                                 @*<div id="myDiv">
                                                     <p>This is the content of my div.</p>
                                                     <button id="removeButton">Remove</button>
                                                 </div>*@
 
-                                                <div id="a" value="1">
+                                               @* <div id="a" value="1">*@
                                                     @Html.DisplayFor(modelItem => item.Status)
-                                                </div>
+                                               @* </div>*@
                                              
                                             </td>
 
