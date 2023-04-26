@@ -240,12 +240,12 @@
 							<div class="d-flex align-items-center">
 								<!-- Avatar -->
 								<div class="avatar avatar-story me-2">
-									<a href="#!"> <img class="avatar-img rounded-circle" src="assets/images/avatar/04.jpg" alt=""> </a>
+									<a href="#!"> <img class="avatar-img rounded-circle" src="" alt=""> </a>
 								</div>
 								<!-- Info -->
 								<div>
 									<div class="nav nav-divider">
-										<h6 class="nav-item card-title mb-0"> <a href="#!"> @*@Context.Session.GetString("UserName")*@ </a></h6>
+										<h6 class="nav-item card-title mb-0"> <a href="#!"> @Context.Session.GetString("UserName") </a></h6>
 										<span class="nav-item small"> 2hr</span>
 									</div>
 									<p class="mb-0 small">Web Developer at Webestica</p>
@@ -1772,9 +1772,9 @@
 						<i class="bi bi-image-fill"></i>
 					</a>
 					 
-					<!-- Add an input element to allow file selection, but hide it with CSS -->
-					<input type="file" id="fileInput" name="files" class="form-control-file" style="display:none" multiple/>
-					<!-- Add a container to display the selected files -->
+					<!-- Add an input eement to allow file selection, but hide it with CSS -->
+					<input type="file"= id="fileInput" name="files" class="form-control-file" style="display:none" multiple/>
+					<!-- Add a containe1r to display the selected files -->
 
 					<div id="fileDisplayContainer"></div>
 					<a class="icon-md bg-light text-secondary rounded-circle" href="#" data-bs-toggle="tooltip" data-bs-placement="top" title="Check in"> <i class="bi bi-geo-alt-fill"></i> </a>
