@@ -112,7 +112,9 @@ namespace SocialProject.Controllers
 
 				_context.Add(postModel);
                 await _context.SaveChangesAsync();
-
+            {
+				TempData["message"] = "Need admin approval: Your post has been recorded successfully";
+			}				
                 return RedirectToAction(nameof(Create));
             
 
