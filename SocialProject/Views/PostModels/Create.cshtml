@@ -215,6 +215,8 @@
 				<!-- Share feed END -->
 				<!-- Card feed item START -->
 				<div class="card">
+					@foreach (PostModel actpost in ViewBag.activatePosts)
+					{
 					<!-- Card header START -->
 					<div class="card-header border-0 pb-0">
 						<div class="d-flex align-items-center justify-content-between">
@@ -253,10 +255,12 @@
 					<!-- Card header END -->
 					<!-- Card body START -->
 					<div class="card-body">
-						<p asp ="Description"></p>
-						<!-- Card img -->
-						<img class="card-img" src="~/assets/images/post/3by2/01.jpg" alt="Post">
-						<!-- Feed react START -->
+					<p asp-for="@actpost.Description"></p>
+								<!-- Card img -->
+								@if (actpost.Attachment != null)
+								{
+									<img src="@actpost.Attachment" alt="Post" />
+								}
 						<ul class="nav nav-stack py-3 small">
 							<li class="nav-item">
 								<a class="nav-link active" href="#!" data-bs-container="body" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-html="true" data-bs-custom-class="tooltip-text-start" data-bs-title="Frances Guerrero<br> Lori Stevens<br> Billy Vasquez<br> Judy Nguyen<br> Larry Lawson<br> Amanda Reed<br> Louis Crawford"> <i class="bi bi-hand-thumbs-up-fill pe-1"></i>Liked (56)</a>
@@ -449,7 +453,7 @@
 							Load more comments
 						</a>
 					</div>
-					<!-- Card footer END -->
+					<!-- Card footer END -->}
 				</div>
 				<!-- Card feed item END -->
 				<!-- Card feed item START -->

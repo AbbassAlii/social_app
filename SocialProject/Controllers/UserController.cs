@@ -80,7 +80,7 @@ namespace SocialProject.Controllers
             else
             {
 
-                HttpContext.Session.SetString("UserName", Found.FullName);
+                HttpContext.Session.SetString("UserName", Found.UserName);
                 HttpContext.Session.SetString("Password", Found.Password);
                 HttpContext.Session.SetString("Attachment", "/Uploads/"+Found.Attachment);
 				HttpContext.Session.SetInt32("UserId", Found.UserId);

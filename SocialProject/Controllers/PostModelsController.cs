@@ -54,11 +54,14 @@ namespace SocialProject.Controllers
             return View(postModel);
         }
 
-        // GET: PostModels/Create
-        public IActionResult Create()
-        {
-            return View();
-        }
+		// GET: PostModels/Create
+		public IActionResult Create()
+		{
+			var activatePosts = _context.PostModel.Where(p => p.Status == "activate").ToList();
+
+			ViewBag.activatePosts = activatePosts;
+			return View(new PostModel());
+		}
 
         // POST: PostModels/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
