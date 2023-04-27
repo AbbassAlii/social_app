@@ -214,9 +214,10 @@
 				</div>
 				<!-- Share feed END -->
 				<!-- Card feed item START -->
-				<div class="card">
-					@foreach (PostModel actpost in ViewBag.activatePosts)
+				@foreach (PostModel actpost in ViewBag.activatePosts)
 					{
+				<div class="card">
+					
 					<!-- Card header START -->
 					<div class="card-header border-0 pb-0">
 						<div class="d-flex align-items-center justify-content-between">
@@ -228,7 +229,7 @@
 								<!-- Info -->
 								<div>
 									<div class="nav nav-divider">
-										<h6 class="nav-item card-title mb-0"> <a href="#!"> @Context.Session.GetString("UserName") </a></h6>
+										<h6 class="nav-item card-title mb-0"> <a href="#!"> @actpost.UserId </a></h6>
 										<span class="nav-item small"> 2hr</span>
 									</div>
 									<p class="mb-0 small">Student</p>
@@ -258,9 +259,35 @@
 							<p asp-for="@actpost.Description">@actpost.Description</p>
 								<!-- Card img -->
 								@if (actpost.Attachment != null)
+							{
+								@foreach (var attachment in actpost.Attachment.Split(','))
 								{
-									<img src="/uploads/@actpost.Attachment" alt="Post" />
+									<div>
+										@if (attachment.EndsWith(".jpg") || attachment.EndsWith(".jpeg") || attachment.EndsWith(".png"))
+										{
+											<img src="@Url.Content("~/uploads/" + attachment)" />
+										}
+										else if (attachment.EndsWith(".mp4") || attachment.EndsWith(".avi") || attachment.EndsWith(".mov"))
+										{
+											<video controls>
+												<source src="@Url.Content("~/uploads/" + attachment)" type="video/mp4" />
+												Your browser does not support the video tag.
+											</video>
+										}
+										else if (attachment.EndsWith(".pdf"))
+										{
+											<a href="@Url.Content("~/uploads/" + attachment)" target="_blank">@attachment</a>
+										}
+									</div>
 								}
+
+							}
+						
+
+
+									@*<img src="/uploads/@actpost.Attachment" alt="Post" />*@
+								
+								
 						<ul class="nav nav-stack py-3 small">
 							<li class="nav-item">
 								<a class="nav-link active" href="#!" data-bs-container="body" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-html="true" data-bs-custom-class="tooltip-text-start" data-bs-title="Frances Guerrero<br> Lori Stevens<br> Billy Vasquez<br> Judy Nguyen<br> Larry Lawson<br> Amanda Reed<br> Louis Crawford"> <i class="bi bi-hand-thumbs-up-fill pe-1"></i>Liked (56)</a>
@@ -453,8 +480,8 @@
 							Load more comments
 						</a>
 					</div>
-					<!-- Card footer END -->}
-				</div>
+					<!-- Card footer END -->
+				</div>}
 				<!-- Card feed item END -->
 				<!-- Card feed item START -->
 				<div class="card">
