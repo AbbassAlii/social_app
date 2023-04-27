@@ -255,11 +255,11 @@
 					<!-- Card header END -->
 					<!-- Card body START -->
 					<div class="card-body">
-					<p asp-for="@actpost.Description"></p>
+							<p asp-for="@actpost.Description">@actpost.Description</p>
 								<!-- Card img -->
 								@if (actpost.Attachment != null)
 								{
-									<img src="@actpost.Attachment" alt="Post" />
+									<img src="/uploads/@actpost.Attachment" alt="Post" />
 								}
 						<ul class="nav nav-stack py-3 small">
 							<li class="nav-item">
