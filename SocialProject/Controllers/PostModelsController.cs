@@ -31,6 +31,10 @@ namespace SocialProject.Controllers
         //}
         public IActionResult Index()
         {
+            var username = HttpContext.Session.Get("AdminUserName");
+
+            if (username == null)
+                return RedirectToAction("Login", "Admin");
             // Get approved posts
             var activatePosts = _context.PostModel.Where(p => p.Status == "activate");
 
@@ -57,6 +61,12 @@ namespace SocialProject.Controllers
 		// GET: PostModels/Create
 		public IActionResult Create()
 		{
+			var username=HttpContext.Session.Get("UserName");
+
+            if (username == null)
+               return RedirectToAction("Login","User");
+
+
 			var activatePosts = _context.PostModel.Where(p => p.Status == "activate").ToList();
 
 			ViewBag.activatePosts = activatePosts;
@@ -244,8 +254,14 @@ namespace SocialProject.Controllers
 
         public async Task<IActionResult> AdminDashboard()
         {
-            // Get all pending posts
-            var pendingPosts = await _context.PostModel
+
+			var username = HttpContext.Session.Get("AdminUserName");
+
+			if (username == null)
+				return RedirectToAction("Login", "Admin");
+
+			// Get all pending posts
+			var pendingPosts = await _context.PostModel
                 .Where(p => p.Status == "Inactive")
                 .ToListAsync();
 

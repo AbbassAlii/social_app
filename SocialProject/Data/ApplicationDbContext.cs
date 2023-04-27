@@ -1,7 +1,6 @@
 ﻿using SocialProject.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using academy.Models;
 
 namespace SocialProject.Data
 {
