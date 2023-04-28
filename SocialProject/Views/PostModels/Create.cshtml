@@ -224,7 +224,7 @@
 							<div class="d-flex align-items-center">
 								<!-- Avatar -->
 								<div class="avatar avatar-story me-2">
-									<a href="#!"> <img class="avatar-img rounded-circle" src="@Context.Session.GetString("Attachment")" alt=""> </a>
+									<a href="#!"> <img class="avatar-img rounded-circle"src="@Url.Content(actpost.CreateBy)" alt=""> </a>
 								</div>
 								<!-- Info -->
 								<div>
@@ -353,7 +353,7 @@
 													<div class="avatar avatar-xs">
 														@if (!string.IsNullOrEmpty(comment.Attachment))
 														{
-															<a href="#!"><img src="@Url.Content("~/uploads/" + comment.Attachment)" alt="" /></a>
+															<a href="#!"><img src="@Url.Content(comment.Attachment)" alt="" /></a>
 														}
 													</div>
 													<div class="ms-2">
