@@ -32,9 +32,13 @@ namespace SocialProject.Models
         public string? Status { get; set; } = "Inactive";
 
         public int? UserId { get; set; }
+		public String? FullName { get; set; }
 
+		[NotMapped]
+        public List<IFormFile>? Attachments { get; set; }
+		//public ICollection<UserModel>? User { get; set; }
 
-        [NotMapped]
-        public List<IFormFile> Attachments { get; set; }
-    }
+		public ICollection<PostCommentModel>? Comments { get; set; }
+		//public UserModel User { get; set; }
+	}
 }
