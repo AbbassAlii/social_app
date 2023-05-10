@@ -1,7 +1,10 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
 }
-@model academy.Models.Admin
+@{
+    Layout = "~/views/shared/_layout1.cshtml";
+}
+@model SocialProject.Models.Admin
 
 
 <html lang="en">
@@ -446,7 +449,9 @@ button, input, optgroup, select, textarea {
 </html>
 
 <div class="css-4n7rnf"><div class="css-bl32jn">
-   <div class="css-1udtbz2"><a href="#" aria-label="Go to #.com"><img src="https://home-static.classdojo.com/_next/static/media/classdojo-logo@2x.4bdae246.png" height="36px" alt=""></a></div></div><div class="css-85dozb"><div class="css-1wnswnx"><div class="css-zhygj3"></div><div class="css-1aui5xv">
+   <div class="css-1udtbz2">
+            <br /><br /><br /><br />
+       <a href="#" aria-label="Go to #.com"><img src="#" height="36px" alt=""></a></div></div><div class="css-85dozb"><div class="css-1wnswnx"><div class="css-zhygj3"></div><div class="css-1aui5xv">
        <form class="css-k2q89j" asp-action="login">
        @using (Html.BeginForm("login", "Admin", FormMethod.Post))
                 {
@@ -493,8 +498,7 @@ button, input, optgroup, select, textarea {
                      
               </div>
                <a href="#/forgot" class="nessie-text css-1owoomt">Forgot your password?</a><div class="css-85dozb">
-                            <button class="css-1j50j9d"  type="button"><span class="nessie-text css-jh65zo"> <a asp-action="Signup">Sign Up</a></span></button>
-                        <button  class="css-1nmcspn" value="submit"  type="submit"><span class="nessie-text css-jh65zo"> Log in</span></button>
+                            <button  class="css-1nmcspn" value="submit"  type="submit"><span class="nessie-text css-jh65zo"> Log in</span></button>
                     </div>
                     }
                </form>

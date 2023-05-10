@@ -1,11 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using System.Net.Mail;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using SocialProject.Data;
 using SocialProject.Models;
@@ -22,27 +24,43 @@ namespace SocialProject.Controllers
 			_logger = logger;
 			_environment = environment;
 		}
+        public async Task<IActionResult> IndexAsync()
+        {
+            var username = HttpContext.Session.Get("AdminUserName");
+            if (username == null)
+            {
+                return RedirectToAction("Login", "Admin");
+            }
+
+            var activatePosts = await _context.PostModel.Where(p => p.Status == "activate").ToListAsync();
+
+            if (activatePosts == null) // Check if activatePosts is null
+            {
+                activatePosts = new List<PostModel>(); // Initialize activatePosts to an empty list
+            }
+
+            return View(activatePosts);
+        }
 
 
-		//public async Task<IActionResult> Index()
-		//{
-		//    return _context.PostModel != null ?
-		//                View(await _context.PostModel.ToListAsync()) :
-		//                Problem("Entity set 'ApplicationDbContext.PostModel'  is null.");
-		//}
-		public IActionResult Index()
-		{
-			var username = HttpContext.Session.Get("AdminUserName");
+        //          return _context.PostModel != null ?
+        //				View(await _context.PostModel.ToListAsync()) :
+        //				Problem("Entity set 'ApplicationDbContext.PostModel'  is null.");
 
-			if (username == null)
-				return RedirectToAction("Login", "Admin");
-			// Get approved posts
-			var activatePosts = _context.PostModel.Where(p => p.Status == "activate");
+        //}
+        //	public async Task<IActionResult> IndexAsync(int postId)
+        //	{
+        //		var username = HttpContext.Session.Get("AdminUserName");
 
-			return View(activatePosts);
-		}
-		// GET: PostModels/Details/5
-		public async Task<IActionResult> Details(int? id)
+        //		if (username == null)
+        //			return RedirectToAction("Login", "Admin");
+        //		// Get approved posts
+        //		var activatePosts =  await _context.PostModel.Include(p => p.Likes).Where(p => p.Status == "activate").FirstOrDefaultAsync(p => p.PostId == postId);
+
+        //		return View(activatePosts);
+        //	}
+        // GET: PostModels/Details/5
+        public async Task<IActionResult> Details(int? id)
 		{
 			if (id == null || _context.PostModel == null)
 			{
@@ -72,6 +90,8 @@ namespace SocialProject.Controllers
 			//var post = _context.PostModel.Include(p => p.Comments).FirstOrDefault(p => p.PostId == postId);
 
 			ViewBag.comments = _context.Comments.ToList();
+			
+
 			return View(new PostModel());
 		}
 
@@ -80,7 +100,7 @@ namespace SocialProject.Controllers
 		// For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
 		[HttpPost]
 		[ValidateAntiForgeryToken]
-		public async Task<IActionResult> Create(PostModel postModel, IList<IFormFile> files)
+		public async Task<IActionResult> Create(PostModel postModel,int postId, IList<IFormFile> files)
 		{
 			int? userId = HttpContext.Session.GetInt32("UserId");
 			string? fullName = HttpContext.Session.GetString("FullName");
@@ -124,6 +144,7 @@ namespace SocialProject.Controllers
 			}
 
 
+			//postModel.LikesCount = 0;
 
 
 			_context.Add(postModel);
@@ -141,15 +162,35 @@ namespace SocialProject.Controllers
 		[ValidateAntiForgeryToken]
 		public async Task<IActionResult> Activate(int id)
 		{
-			var post = await _context.PostModel.FindAsync(id);
+            int? userId = HttpContext.Session.GetInt32("AdminId");
+         // string?  Attachment = HttpContext.Session.GetString("Attachment");
+           string? AdminUserName = HttpContext.Session.GetString("AdminUserName");
+            var post = await _context.PostModel.FindAsync(id);
 			if (post != null)
 			{
 				post.Status = "Activate";
 				_context.Update(post);
 				await _context.SaveChangesAsync();
 			}
-
-			return RedirectToAction(nameof(Index));
+            if (post.UserId != userId)
+            {
+                var notification = new NotificationModel
+                {
+                    Message = $"Admin Accept your post",
+                    Type = NotificationType.PostAccepted,
+                    CreatedAt = DateTime.UtcNow,
+                    IsRead = false,
+                    SenderId = userId,
+                    ReceiverId = post.UserId,
+                   // SenderName = AdminUserName,
+                    ReceiverName = post.FullName,
+                    PostId = id,
+                    //Senderpic = Attachment,
+                };
+                await _context.Notifications.AddAsync(notification);
+            }
+			await _context.SaveChangesAsync();
+			return RedirectToAction(nameof(Create));
 		}
 
 
@@ -205,7 +246,7 @@ namespace SocialProject.Controllers
 			{
 				_context.Update(existingPost);
 				await _context.SaveChangesAsync();
-				return RedirectToAction(nameof(Index));
+				return RedirectToAction(nameof(IndexAsync));
 			}
 			return View(postModel);
 		}
@@ -238,20 +279,28 @@ namespace SocialProject.Controllers
 		[ValidateAntiForgeryToken]
 		public async Task<IActionResult> Delete(int postId)
 		{
-			// Retrieve the post from the database using the postId
-			var post = await _context.PostModel.FindAsync(postId);
+			// Get the post and its associated comments
+			var post = await _context.PostModel.Include(p => p.Comments).FirstOrDefaultAsync(p => p.PostId == postId);
 
-			// If post not found, return not found status
 			if (post == null)
 			{
-				return NotFound();
+				TempData["error"] = "Post not found.";
+				return RedirectToAction(nameof(Index));
 			}
 
-			// Delete the post from the database
+			// Delete the comments
+			foreach (var comment in post.Comments)
+			{
+				_context.Comments.Remove(comment);
+			}
+
+			// Delete the post
 			_context.PostModel.Remove(post);
+
+			// Save the changes to the database
 			await _context.SaveChangesAsync();
 
-			// Redirect to index action after successful deletion
+			TempData["success"] = "Post deleted successfully.";
 			return RedirectToAction(nameof(Index));
 		}
 
@@ -314,9 +363,10 @@ namespace SocialProject.Controllers
 		}
 
 		[HttpPost]
-		public IActionResult AddComment(int postId, string body, string FullName, string Attachment)
+		public IActionResult AddComment(int postId, string body, string? FullName, string? Attachment)
 		{
-			Attachment = HttpContext.Session.GetString("Attachment");
+            int? userId = HttpContext.Session.GetInt32("UserId");
+            Attachment = HttpContext.Session.GetString("Attachment");
 			FullName = HttpContext.Session.GetString("FullName");
 			if (string.IsNullOrWhiteSpace(body))
 			{
@@ -341,8 +391,25 @@ namespace SocialProject.Controllers
 			};
 
 			_context.Comments.Add(comment);
+            if (post.UserId != userId)
+            {
+                var notification = new NotificationModel
+                {
+                    Message = $"{FullName} Comment on your post",
+                    Type = NotificationType.Comment,
+                    CreatedAt = DateTime.UtcNow,
+                    IsRead = false,
+                    SenderId = userId,
+                    ReceiverId = post.UserId,
+                    SenderName = FullName,
+                    ReceiverName = post.FullName,
+                    PostId = postId,
+                    Senderpic = Attachment,
+                };
+                 _context.Notifications.AddAsync(notification);
+            }
 
-			_context.SaveChanges();
+            _context.SaveChanges();
 
 			return RedirectToAction("Create", new { postId = postId });
 
@@ -352,6 +419,102 @@ namespace SocialProject.Controllers
 		{
 			return View(postId);
 		}
+
+		 
+
+		[HttpPost]
+		public async Task<IActionResult> LikePost(int postId)
+		{
+			// Get the authenticated user
+			int? userId = HttpContext.Session.GetInt32("UserId");
+			string? fullname = HttpContext.Session.GetString("FullName");
+            string? pic = HttpContext.Session.GetString("Attachment");
+            // Check if the post exists
+            var post = await _context.PostModel.FindAsync(postId);
+			if (post == null)
+			{
+				TempData["error"] = "Post not found.";
+				return RedirectToAction(nameof(Index));
+			}
+
+			// Check if the user has already liked the post
+			var like = await _context.Likes.FirstOrDefaultAsync(l => l.PostId == postId && l.UserId == userId);
+
+			if (like == null)
+			{
+				// Create a new like
+				like = new LikeModel { PostId = postId, UserId = userId };
+				await _context.Likes.AddAsync(like);
+
+				// Increment the LikesCount property of the PostModel entity
+				if (post.LikesCount == null)
+				{
+					post.LikesCount = 1;
+				}
+				else
+				{
+					post.LikesCount++;
+				}
+
+				if (post.UserId != userId)
+				{
+					var notification = new NotificationModel
+					{
+						Message = $"{userId} liked your post",
+						Type = NotificationType.Like,
+						CreatedAt = DateTime.UtcNow,
+						IsRead = false,
+						SenderId = userId,
+						ReceiverId = post.UserId,
+						SenderName = fullname,
+						ReceiverName = post.FullName,
+						PostId = postId,
+						Senderpic = pic,
+					};
+					await _context.Notifications.AddAsync(notification);
+				}
+				// Save the changes to the database
+				await _context.SaveChangesAsync();
+
+				TempData["success"] = "You liked this post!";
+
+				//if (post.UserId != userId)
+				//{
+				//	var notification = new NotificationModel
+				//	{
+				//		Message = $"{userId} liked your post",
+				//		Type = NotificationType.Like,
+				//		CreatedAt = DateTime.UtcNow,
+				//		IsRead = false,
+				//		SenderId = userId,
+				//		ReceiverId = post.UserId
+				//	};
+				//	await _context.Notifications.AddAsync(notification);
+				//}
+			}
+
+			else
+			{
+				// Remove the existing like
+				_context.Likes.Remove(like);
+
+				// Decrement the LikesCount property of the PostModel entity
+				post.LikesCount--;
+
+				// Save the changes to the database
+				await _context.SaveChangesAsync();
+
+				TempData["success"] = "You unliked this post.";
+			}
+
+			//return RedirectToAction(nameof(Create));
+			return Json(new { success = true, likesCount = post.LikesCount });
+		}
+
+
+
+
+
 
 	}
 }

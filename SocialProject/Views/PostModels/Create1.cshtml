@@ -37,3 +37,19 @@
 
     <button type="submit" class="btn btn-primary">Submit</button>
 </form>
+@*@foreach (PostModel actpost in ViewBag.activatePosts)
+							{
+
+								<p asp-for="@actpost.Description"></p>
+								<!-- Card img -->
+								@if (actpost.Attachment != null)
+								{
+									<img src="@actpost.Attachment" alt="Post" />
+								}*@
+                              @*  public IActionResult Create()
+        {
+            var activatePosts = _context.PostModel.Where(p => p.Status == "activate").ToList();
+
+            ViewBag.activatePosts = activatePosts;
+            return View(new PostModel());
+        }*@

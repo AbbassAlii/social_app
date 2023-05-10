@@ -61,6 +61,7 @@ namespace SocialProject.Controllers
             {
 
                 HttpContext.Session.SetString("AdminUserName", Found.Name);
+                HttpContext.Session.SetInt32("AdminId", Found.AdminId);
                 HttpContext.Session.SetString("AdminPassword", Found.Password);
 
                 return RedirectToActionPermanent("AdminDashboard", "PostModels");

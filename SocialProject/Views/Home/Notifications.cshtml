@@ -1,4 +1,5 @@
-﻿
+﻿@model SocialProject.Models.NotificationModel
+
 <!-- **************** MAIN CONTENT START **************** -->
 <main>
 
@@ -143,9 +144,28 @@
             </div>
             <!-- Notification action END -->
           </div>
-          <div class="card-body p-2">
+
+                    <div class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" id="notificationDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Notifications (@(ViewBag.Notifications?.Count ?? 0))
+                        </button>
+                        @if (ViewBag.Notifications != null)
+                        {
+                            <div class="dropdown-menu" aria-labelledby="notificationDropdown">
+                                @foreach (NotificationModel notification in ViewBag.Notifications)
+                                {
+                                    <a class="dropdown-item" href="#">
+                                        @notification.Message
+                                    </a>
+                                }
+                            </div>
+                        }
+                    </div>
+
+
             <ul class="list-unstyled">
               <!-- Notif item -->
+
               <li>
                 <div class="rounded badge-unread d-sm-flex border-0 mb-1 p-3 position-relative">
                   <!-- Avatar -->
@@ -422,3 +442,74 @@
 </main>
 
 <!-- **************** MAIN CONTENT END **************** -->
+
+
+
+    @*<script>
+        $(document).ready(function () {
+            // Get notifications for the logged-in user
+            $.ajax({
+            url: '@Url.Action("Notifications", "HomeController")',
+                type: "GET",
+                dataType: "json",
+                success: function (result) {
+                    // Update the notification badge
+                    $("#notification-badge").text(result.length);
+
+                    // Update the notification dropdown
+                    var dropdown = $("#notification-dropdown");
+                    dropdown.empty();
+
+                    $.each(result, function (i, notification) {
+                        dropdown.append(`<li><a href="#">${notification.message}</a></li>`);
+                    });
+                },
+                error: function (xhr, status, error) {
+                    console.log(error);
+                }
+            });
+
+            // Poll for new notifications every 30 seconds
+            setInterval(function () {
+                $.ajax({
+                    url: "/Notifications/GetNotifications",
+                    type: "GET",
+                    dataType: "json",
+                    success: function (result) {
+                        // Update the notification badge
+                        $("#notification-badge").text(result.length);
+
+                        // Update the notification dropdown
+                        var dropdown = $("#notification-dropdown");
+                        dropdown.empty();
+
+                        $.each(result, function (i, notification) {
+                            dropdown.append(`<li><a href="#">${notification.message}</a></li>`);
+                        });
+                    },
+                    error: function (xhr, status, error) {
+                        console.log(error);
+                    }
+                });
+            }, 30000);
+        });
+    </script>*@
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+<!-- jQuery library -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+
+<!-- Popper JS library -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+
+<!-- Bootstrap JS file -->
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+<script>
+    var jq = $.noConflict();
+    jq(function () {
+        jq('[data-toggle="dropdown"]').on('click', function () {
+            jq(this).siblings('.dropdown-menu').toggle();
+        });
+    });
+</script>
