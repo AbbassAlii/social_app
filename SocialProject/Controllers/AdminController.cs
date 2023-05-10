@@ -60,10 +60,11 @@ namespace SocialProject.Controllers
             else
             {
 
-                HttpContext.Session.SetString("UserName", Found.Name);
-                HttpContext.Session.SetString("Password", Found.Password);
+                HttpContext.Session.SetString("AdminUserName", Found.Name);
+                HttpContext.Session.SetInt32("AdminId", Found.AdminId);
+                HttpContext.Session.SetString("AdminPassword", Found.Password);
 
-                return RedirectToActionPermanent("Index", "Admin");
+                return RedirectToActionPermanent("AdminDashboard", "PostModels");
             }
 
             return View(_adminModel);
@@ -82,50 +83,6 @@ namespace SocialProject.Controllers
             return View();
         }
 
-
-        public IActionResult Addclass()
-        {
-            return View();
-        }
-        public IActionResult Allclass()
-        {
-            return View();
-        }
-        public IActionResult Addstudent()
-        {
-            return View();
-        }
-        public IActionResult Studentdetails()
-        {
-            return View();
-        }
-        public IActionResult Admitform()
-        {
-            return View();
-        }
-        public IActionResult Allstudent()
-        {
-            return View();
-        }
-
-        public IActionResult Allteacher()
-        {
-            return View();
-        }
-        public IActionResult Addteacher()
-        {
-            return View();
-        }
-
-        public IActionResult Classroutine()
-        {
-            return View();
-        }
-
-        public IActionResult Teacherdetails()
-        {
-            return View();
-        }
 
     }
 }

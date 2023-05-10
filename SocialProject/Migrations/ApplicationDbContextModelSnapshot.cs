@@ -22,6 +22,96 @@ namespace SocialProject.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
+                {
+                    b.Property<string>("LoginProvider")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("ProviderKey")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("ProviderDisplayName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("LoginProvider", "ProviderKey");
+
+                    b.ToTable("IdentityUserLogin<string>");
+                });
+
+            modelBuilder.Entity("SocialProject.Models.Admin", b =>
+                {
+                    b.Property<int>("AdminId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("AdminId"), 1L, 1);
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("AdminId");
+
+                    b.ToTable("Admins");
+                });
+
+            modelBuilder.Entity("SocialProject.Models.PostCommentModel", b =>
+                {
+                    b.Property<int>("PostCommentId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PostCommentId"), 1L, 1);
+
+                    b.Property<string>("Attachment")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Body")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CreateBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("CreateDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("FullName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("PostId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Reaction")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UpdateBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("UpdateDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("UserID")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("UserModelUserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("PostCommentId");
+
+                    b.HasIndex("PostId");
+
+                    b.HasIndex("UserModelUserId");
+
+                    b.ToTable("Comments");
+                });
+
             modelBuilder.Entity("SocialProject.Models.PostModel", b =>
                 {
                     b.Property<int>("PostId")
@@ -43,6 +133,9 @@ namespace SocialProject.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FullName")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Location")
@@ -115,6 +208,29 @@ namespace SocialProject.Migrations
                     b.HasKey("UserId");
 
                     b.ToTable("UserModels");
+                });
+
+            modelBuilder.Entity("SocialProject.Models.PostCommentModel", b =>
+                {
+                    b.HasOne("SocialProject.Models.PostModel", "Post")
+                        .WithMany("Comments")
+                        .HasForeignKey("PostId");
+
+                    b.HasOne("SocialProject.Models.UserModel", null)
+                        .WithMany("Comments")
+                        .HasForeignKey("UserModelUserId");
+
+                    b.Navigation("Post");
+                });
+
+            modelBuilder.Entity("SocialProject.Models.PostModel", b =>
+                {
+                    b.Navigation("Comments");
+                });
+
+            modelBuilder.Entity("SocialProject.Models.UserModel", b =>
+                {
+                    b.Navigation("Comments");
                 });
 #pragma warning restore 612, 618
         }

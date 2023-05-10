@@ -15,19 +15,16 @@ namespace SocialProject.Models
         public string? UserRole { get; set; }
         public string? Address { get; set; }
         public string? CreateBy { get; set; }
-        public string? CreateDate { get; set; }
+        public DateTime? CreateDate { get; set; }
         public string? UpdateBy { get; set; }
-        public string? UpdateDate { get; set; }
+        public DateTime? UpdateDate { get; set; }
      
  
+ public ICollection<UserCommentModel>? Commentss { get; set; }
+        public string? ResetPasswordToken { get; set; }
+        public DateTime? ResetPasswordExpiration { get; set; }
 
-		// Navigation property for one-to-many relationship
-		//public ICollection<PostModel> Posts { get; set; }
-        //public PostModel posts { get; set; } //[ many user 1 post]
-        //public EventModel eventModel { get; set; } //[ many user 1 event]
 
-        //public BlogModel blogModel { get; set; } //[ many user 1 event]
-        //public UserCommentModel UserCommentModel { get; set; }
     }
 
 

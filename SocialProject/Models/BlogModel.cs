@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SocialProject.Models
 {
@@ -11,13 +12,18 @@ namespace SocialProject.Models
 		public string? Location { get; set; }
 		public string? Attachment { get; set; }
 		public string? CreateBy { get; set; }
-		public string? CreateDate { get; set; }
+		public DateTime?  CreateDate { get; set; }
 		public string? UpdateBy { get; set; }
-		public string? UpdateDate { get; set; }
+		public DateTime?  UpdateDate { get; set; }
 		public string? Status { get; set; }
-		public string UserID { get; set; }
-        public int UserCommentId { get; set; }
-        //public ICollection<UserModel> User { get; set; }//[user many blog one]
-       // public ICollection<UserCommentModel> UserComment { get; set; }
+		public int? UserID { get; set; }
+		public String? FullName { get; set; }
+
+		[NotMapped]
+		public List<IFormFile>? Attachments { get; set; }
+		
+
+		//public int UserCommentId { get; set; }
+        public ICollection<UserCommentModel>? UserComment { get; set; }
     }
 }
