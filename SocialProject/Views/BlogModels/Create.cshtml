@@ -95,9 +95,14 @@
                         </li>
 
                         <li class="nav-item ">
-                            <a asp-area="" asp-action="create" asp-controller="BlogModels" class="nav-link menu-active"><i class="flaticon-chat"></i><span>AddBlog</span></a>
+                        <a asp-area="" asp-action="create" asp-controller="BlogModels" class="nav-link menu-active"><i class="flaticon-chat"></i><span>AddTopic</span></a>
 
                         </li>
+
+                    <li class="nav-item ">
+                        <a asp-area="" asp-action="ActiveTopic" asp-controller="BlogModels" class="nav-link "><i class="flaticon-chat"></i><span>ActiveTopics</span></a>
+
+                    </li>
 
                     </ul>
                 </div>
@@ -109,12 +114,12 @@
             <div class="dashboard-content-one">
                 <!-- Breadcubs Area Start Here -->
                 <div class="breadcrumbs-area">
-                    <h3>Blogs</h3>
+                <h3>Topics</h3>
                     <ul>
                         <li>
                             <a href="#">Home</a>
                         </li>
-                        <li>Compose Blog</li>
+                    <li>Compose Topic</li>
                     </ul>
                 </div>
                 <!-- Breadcubs Area End Here -->
@@ -125,7 +130,7 @@
                             <div class="card-body">
                                 <div class="heading-layout1">
                                     <div class="item-title">
-                                        <h3>Add New Blog</h3>
+                                        <h3>Add New Topic</h3>
                                     </div>
                                     
                                 </div>
@@ -134,7 +139,7 @@
                                         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                                         <div class="col-12 form-group">
                                             <label asp-for="Title" class="control-label"></label>
-                                            <input asp-for="Title" class="form-control" />
+                                            <input asp-for="Title" class="form-control" required />
                                             <span asp-validation-for="Title" class="text-danger"></span>
                                         </div>
                                         <div class="form-group">
@@ -144,12 +149,12 @@
                                         </div>
                                         <div class="col-12 form-group">
                                             <label asp-for="Description">Description</label>
-                                            <textarea asp-for="Description" id="editor" name="Description"></textarea>
+                                            <textarea asp-for="Description" id="editor" name="Description" required></textarea>
                                         </div>
                                         <div class="col-12 form-group mg-t-8">
-                                            <button type="submit" class="btn-fill-lg btn-gradient-yellow btn-hover-bluedark">Save</button>
-                                            <button type="reset" class="btn-fill-lg bg-blue-dark btn-hover-yellow">Reset</button>
-                                        </div>
+                                            <button type="submit" class="btn-fill-lg btn-gradient-yellow btn-hover-bluedark">Post</button>
+                                        @* <button type="reset" class="btn-fill-lg bg-blue-dark btn-hover-yellow">Reset</button>
+                                       *@ </div>
                                     </div>
                                 </form>
 

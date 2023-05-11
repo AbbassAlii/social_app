@@ -88,8 +88,12 @@
                         </li>
                      
                         <li class="nav-item ">
-                            <a asp-area="" asp-action="create" asp-controller="BlogModels" class="nav-link"><i class="flaticon-chat"></i><span>AddBlog</span></a>
+                            <a asp-area="" asp-action="create" asp-controller="BlogModels" class="nav-link"><i class="flaticon-chat"></i><span>AddTopic</span></a>
                            
+                        </li>
+                        <li class="nav-item ">
+                            <a asp-area="" asp-action="ActiveTopic" asp-controller="BlogModels" class="nav-link "><i class="flaticon-chat"></i><span>ActiveTopics</span></a>
+
                         </li>
                      
                     </ul>
@@ -161,7 +165,7 @@
                                                 
                                                 @*<div id="b" value="activate" > *@
                                                 <form method="post" asp-action="Activate" asp-route-id="@item.PostId">
-                                                    <button  type="submit">Approve</button>
+                                                        <button style="background-color: #98BF64;" type="submit">Approve</button>
                                                 </form>@*</div>*@
                                                 @*<div id="myDiv">
                                                     <p>This is the content of my div.</p>

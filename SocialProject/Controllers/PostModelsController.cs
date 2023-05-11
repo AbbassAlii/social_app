@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Net.Mail;
 using System.Security.Claims;
@@ -9,8 +11,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using NuGet.ContentModel;
 using SocialProject.Data;
 using SocialProject.Models;
+using static System.Net.WebRequestMethods;
+
 namespace SocialProject.Controllers
 {
 	public class PostModelsController : Controller
@@ -111,8 +116,9 @@ namespace SocialProject.Controllers
 				postModel.UserId = userId.Value;
 				postModel.FullName = fullName; // add this line to assign the value to the postModel
 				postModel.CreateBy = createdby;
+                postModel.CreateDate = DateTime.Now;
 
-				foreach (var file in files)
+                foreach (var file in files)
 				{
 					if (file != null && file.Length > 0)
 					{
@@ -163,18 +169,19 @@ namespace SocialProject.Controllers
 		public async Task<IActionResult> Activate(int id)
 		{
             int? userId = HttpContext.Session.GetInt32("AdminId");
-         // string?  Attachment = HttpContext.Session.GetString("Attachment");
-           string? AdminUserName = HttpContext.Session.GetString("AdminUserName");
-            var post = await _context.PostModel.FindAsync(id);
+			// string?  Attachment = HttpContext.Session.GetString("Attachment");
+			String? adminpic = "/assets/images/icon/admin.png";
+		   string ? AdminUserName = HttpContext.Session.GetString("AdminUserName");
+			var post = await _context.PostModel.FindAsync(id);
 			if (post != null)
 			{
 				post.Status = "Activate";
 				_context.Update(post);
 				await _context.SaveChangesAsync();
 			}
-            if (post.UserId != userId)
-            {
-                var notification = new NotificationModel
+			if (post.UserId != userId)
+			{
+				var notification = new NotificationModel
                 {
                     Message = $"Admin Accept your post",
                     Type = NotificationType.PostAccepted,
@@ -185,16 +192,16 @@ namespace SocialProject.Controllers
                    // SenderName = AdminUserName,
                     ReceiverName = post.FullName,
                     PostId = id,
-                    //Senderpic = Attachment,
+                    Senderpic = adminpic,
                 };
                 await _context.Notifications.AddAsync(notification);
             }
 			await _context.SaveChangesAsync();
-			return RedirectToAction(nameof(Create));
-		}
+            return RedirectToAction(nameof(Index));
+        }
 
 
-		public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> Edit(int? id)
 		{
 			if (id == null)
 			{
@@ -246,9 +253,9 @@ namespace SocialProject.Controllers
 			{
 				_context.Update(existingPost);
 				await _context.SaveChangesAsync();
-				return RedirectToAction(nameof(IndexAsync));
-			}
-			return View(postModel);
+                return RedirectToAction(nameof(Index));
+            }
+            return View(postModel);
 		}
 
 		private bool PostExists(int id)
@@ -277,34 +284,38 @@ namespace SocialProject.Controllers
 		// POST: PostModels/Delete/5
 		[HttpPost]
 		[ValidateAntiForgeryToken]
-		public async Task<IActionResult> Delete(int postId)
-		{
-			// Get the post and its associated comments
-			var post = await _context.PostModel.Include(p => p.Comments).FirstOrDefaultAsync(p => p.PostId == postId);
+        public async Task<IActionResult> Delete(int postId)
+        {
+            // Get the post and its associated comments
+            var post = await _context.PostModel.Include(p => p.Comments).FirstOrDefaultAsync(p => p.PostId == postId);
 
-			if (post == null)
-			{
-				TempData["error"] = "Post not found.";
-				return RedirectToAction(nameof(Index));
-			}
+            if (post == null)
+            {
+                TempData["error"] = "Post not found.";
+                return RedirectToAction(nameof(Index));
+            }
 
-			// Delete the comments
-			foreach (var comment in post.Comments)
-			{
-				_context.Comments.Remove(comment);
-			}
+            // Delete the likes associated with the post
+            var likes = _context.Likes.Where(l => l.PostId == postId);
+            _context.Likes.RemoveRange(likes);
 
-			// Delete the post
-			_context.PostModel.Remove(post);
+            // Delete the comments
+            foreach (var comment in post.Comments)
+            {
+                _context.Comments.Remove(comment);
+            }
 
-			// Save the changes to the database
-			await _context.SaveChangesAsync();
+            // Delete the post
+            _context.PostModel.Remove(post);
 
-			TempData["success"] = "Post deleted successfully.";
-			return RedirectToAction(nameof(Index));
-		}
+            // Save the changes to the database
+            await _context.SaveChangesAsync();
 
-		public async Task<IActionResult> AdminDashboard()
+            TempData["success"] = "Post deleted successfully.";
+            return RedirectToAction(nameof(Index));
+        }
+
+        public async Task<IActionResult> AdminDashboard()
 		{
 			var username = HttpContext.Session.Get("AdminUserName");
 

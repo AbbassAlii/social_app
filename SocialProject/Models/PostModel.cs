@@ -33,7 +33,7 @@ namespace SocialProject.Models
 
         public int? UserId { get; set; }
 		public String? FullName { get; set; }
-		public int? LikesCount { get; set; }
+        public int? LikesCount { get; set; } = 0;
 		[NotMapped]
         public List<IFormFile>? Attachments { get; set; }
         //public ICollection<UserModel>? User { get; set; }
