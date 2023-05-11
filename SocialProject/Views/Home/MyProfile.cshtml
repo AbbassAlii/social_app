@@ -278,8 +278,15 @@
 						</div>
 						<!-- Share feed END -->
 						<!-- Card feed item START -->
-						@foreach (PostModel actpost in ViewBag.userPosts)
-						{
+				@{
+					List<PostModel> posts = ViewBag.userPosts;
+					var orderedPosts = from post in posts
+												orderby post.CreateDate descending
+												select post;
+				}
+
+				@foreach (var actpost in orderedPosts)
+				{
 							<div class="card">
 
 								<!-- Card header START -->
@@ -295,8 +302,9 @@
 												<div class="nav nav-divider">
 													<h6 class="nav-item card-title mb-0"> <a href="#!"> @actpost.FullName </a></h6>
 											@*		<span class="nav-item small"> 2hr</span>*@
-												</div>
-												<p class="mb-0 small">Student</p>
+												</div>@*
+												<p class="mb-0 small">Student</p>*@
+										<span class="nav-item small"> @actpost.CreateDate</span>
 											</div>
 										</div>
 										<!-- Card feed action dropdown START -->
@@ -452,7 +460,7 @@
 				
 
 					<!-- Feed box post -->
-					<form class="w-100" asp-action="Create" method="post" enctype="multipart/form-data">
+					<form class="w-100" asp-area="" asp-controller="PostModels" asp-action="Create" method="post" enctype="multipart/form-data">
 						<textarea asp-for="Description" class="form-control pe-4 fs-3 lh-1 border-0" rows="4" placeholder="Write something..." required autofocus ></textarea>
 
 						<!-- Feed rect START -->

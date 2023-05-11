@@ -253,7 +253,7 @@
                                     </h5>
                                     <div class="d-none d-sm-inline-block">@*
                                         <p class="mb-2">@Html.Raw(item.Description) </p>*@
-                                        <p class="mb-2">@Html.Raw(Truncate(item.Description, 150)) </p>
+                                        <p class="mb-2">@Html.Raw(Truncate(item.Description, 60)) </p>
 
                                         <!-- BLog date -->
                                         <a class="small text-secondary" href="#!"> <i class="bi bi-calendar-date pe-1"></i> @item.CreateDate</a>
@@ -267,10 +267,19 @@
                        <br/>
                     }
                     @functions {
-                        public static string Truncate(string value, int maxLength)
+                        public static string Truncate(string value, int numWords)
                         {
                             if (string.IsNullOrEmpty(value)) return value;
-                            return value.Length <= maxLength ? value : value.Substring(0, maxLength) + "...";
+
+                            string[] words = value.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+                            if (words.Length <= numWords)
+                            {
+                                return value;
+                            }
+                            else
+                            {
+                                return string.Join(" ", words.Take(numWords)) + "...";
+                            }
                         }
                     }
                     <!-- Blog item START -->

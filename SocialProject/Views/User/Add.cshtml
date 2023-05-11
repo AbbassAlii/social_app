@@ -106,6 +106,11 @@
 					<!-- Sign in START -->
 					<div class="card card-body text-center p-4 p-sm-5" style="background-color: #0c11156e !important;">
 						<!-- Title -->
+						@if (TempData["message"] != null)
+						{
+
+							<div class="alert alert-danger">@TempData["message"]</div>
+						}
 						<h1 class="mb-2 text_color">Sign up</h1>
 						<p class="mb-0 v text_color">
 							Already have an account?<a href="@Url.Action("login")" style="color: #73b4c7;font-weight: 600;text-transform: uppercase;">  Sign in here</a>
@@ -114,7 +119,7 @@
 						<form class="mt-sm-4" asp-action="Add" method="post" enctype="multipart/form-data">
 							<!--Full Name -->
 							<div class="mb-3 input-group-lg text_color">
-								<input asp-for="FullName" type="text" class="form-control" placeholder="Enter Full Name">
+								<input asp-for="FullName" type="text" class="form-control" required placeholder="Enter Full Name">
 								@*<small>We'll never share your email with anyone else.</small>*@
 							</div><!--user Name -->
 							@*<div class="mb-3 input-group-lg text_color">
@@ -134,24 +139,24 @@
 							</div>
 								<!-- Address -->
 							<div class="mb-3 input-group-lg text_color">
-								<input asp-for="Address" type="text" class="form-control" placeholder="Enter City">
+								<input asp-for="Address" type="text" class="form-control" placeholder="Enter City" required>
 								@*<small>We'll never share your email with anyone else.</small>*@
 							</div>
 							<!-- File -->
 							<div class="mb-3 input-group-lg text_color">
-								<input asp-for="Attachment" type="file" name="file" class="form-control" >
+								<input asp-for="Attachment" type="file" name="file" class="form-control" required>
 								@*<small>We'll never share your email with anyone else.</small>*@
 							</div>
 							<!-- Email -->
 							<div class="mb-3 input-group-lg text_color">
-								<input asp-for="Email" type="email" class="form-control" placeholder="Enter email">
+								<input asp-for="Email" type="email" class="form-control" required placeholder="Enter email">
 								@*<small>We'll never share your email with anyone else.</small>*@
 							</div>
 							<!-- New password -->
 							<div class="mb-3 position-relative">
 								<!-- Password -->
 								<div class="input-group input-group-lg text_color">
-									<input asp-for="Password" class="form-control fakepassword" type="password" id="psw-input" placeholder="Enter new password">
+									<input asp-for="Password" class="form-control fakepassword" required type="password" id="psw-input" placeholder="Enter new password">
 									<span class="input-group-text p-0" style="background-color: #0f6fec;">
 										<i class="fakepasswordicon fa-solid fa-eye-slash cursor-pointer p-2 w-40px text_color"></i>
 									</span>

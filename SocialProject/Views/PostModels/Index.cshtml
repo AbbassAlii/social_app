@@ -90,10 +90,13 @@
                         </li>
 
                         <li class="nav-item ">
-                            <a asp-area="" asp-action="create" asp-controller="BlogModels" class="nav-link"><i class="flaticon-chat"></i><span>AddBlog</span></a>
+                            <a asp-area="" asp-action="create" asp-controller="BlogModels" class="nav-link"><i class="flaticon-chat"></i><span>AddTopic</span></a>
 
                         </li>
+                         <li class="nav-item ">
+                        <a asp-area="" asp-action="ActiveTopic" asp-controller="BlogModels" class="nav-link "><i class="flaticon-chat"></i><span>ActiveTopics</span></a>
 
+                    </li>
                     </ul>
                 </div>
             </div>
@@ -126,9 +129,9 @@
                                 <div class="col-4-xxxl col-xl-4 col-lg-3 col-12 form-group">
                                     <input type="text" placeholder="Search by Name ..." class="form-control">
                                 </div>
-                                <div class="col-4-xxxl col-xl-3 col-lg-3 col-12 form-group">
+                               @* <div class="col-4-xxxl col-xl-3 col-lg-3 col-12 form-group">
                                     <input type="text" placeholder="Search by Class ..." class="form-control">
-                                </div>
+                                </div>*@
                                 <div class="col-1-xxxl col-xl-2 col-lg-3 col-12 form-group">
                                     <button type="submit" class="fw-btn-fill btn-gradient-yellow">SEARCH</button>
                                 </div>
@@ -144,10 +147,10 @@
                                         <th>
                                             @Html.DisplayNameFor(model => model.Description)
                                         </th>
-                                      
+                                      @*
                                         <th>
                                             @Html.DisplayNameFor(model => model.Activity)
-                                        </th>
+                                        </th>*@
                                         <th>
                                             @Html.DisplayNameFor(model => model.Attachment)
                                         </th>
@@ -172,9 +175,9 @@
                                                 @Html.DisplayFor(modelItem => item.Description)
                                             </td>
                                             
-                                            <td>
+                                           @* <td>
                                                 @Html.DisplayFor(modelItem => item.Activity)
-                                            </td>
+                                            </td>*@
                                             <td>
                                                 @Html.DisplayFor(modelItem => item.Attachment)
                                             </td>

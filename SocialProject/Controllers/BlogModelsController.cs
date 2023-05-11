@@ -36,7 +36,28 @@ namespace SocialProject.Controllers
                           View(await _context.Blogs.ToListAsync()) :
                           Problem("Entity set 'ApplicationDbContext.Blogs'  is null.");
         }
+        //public static string Truncate(string value, int numWords)
+        //{
+        //    if (string.IsNullOrEmpty(value)) return value;
 
+        //    string[] words = value.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+        //    if (words.Length <= numWords)
+        //    {
+        //        return value;
+        //    }
+        //    else
+        //    {
+        //        return string.Join(" ", words.Take(numWords)) + "...";
+        //    }
+        //}
+
+        public async Task<IActionResult> ActiveTopic()
+        {
+            return _context.Blogs != null ?
+                          View(await _context.Blogs.ToListAsync()) :
+                          Problem("Entity set 'ApplicationDbContext.Blogs'  is null.");
+           // return View();
+        }
         // GET: BlogModels/Details/5
         public async Task<IActionResult> Details(int? id)
         {
@@ -113,7 +134,7 @@ namespace SocialProject.Controllers
                 }
                 _context.Add(blogPost);
 				await _context.SaveChangesAsync();
-				return RedirectToAction(nameof(Index));
+				return RedirectToAction(nameof(ActiveTopic));
 			}
 			return View(blogPost);
 		}
@@ -139,9 +160,9 @@ namespace SocialProject.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("BlogId,Title,Description,Location,Attachment,CreateBy,CreateDate,UpdateBy,UpdateDate,Status,UserID,FullName")] BlogModel blogModel)
+        public async Task<IActionResult> Edit(int BlogId, [Bind("BlogId,Title,Description,Location,Attachment,CreateBy,CreateDate,UpdateBy,UpdateDate,Status,UserID,FullName")] BlogModel blogModel)
         {
-            if (id != blogModel.BlogId)
+            if (BlogId != blogModel.BlogId)
             {
                 return NotFound();
             }
@@ -164,7 +185,7 @@ namespace SocialProject.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(ActiveTopic));
             }
             return View(blogModel);
         }
@@ -194,17 +215,28 @@ namespace SocialProject.Controllers
         {
             if (_context.Blogs == null)
             {
-                return Problem("Entity set 'ApplicationDbContext.Blogs'  is null.");
+                return Problem("Entity set 'ApplicationDbContext.Blogs' is null.");
             }
+
+            // Check if there are any related comments
+            var comments = await _context.UserComments.Where(c => c.BlogId == BlogId).ToListAsync();
+
+            if (comments.Count > 0)
+            {
+                // Delete the related comments
+                _context.UserComments.RemoveRange(comments);
+            }
+
             var blogModel = await _context.Blogs.FindAsync(BlogId);
             if (blogModel != null)
             {
                 _context.Blogs.Remove(blogModel);
             }
-            
+
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(ActiveTopic));
         }
+
 
         private bool BlogModelExists(int id)
         {

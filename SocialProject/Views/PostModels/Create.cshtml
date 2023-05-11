@@ -189,8 +189,15 @@
 				</div>
 				<!-- Share feed END -->
 				<!-- Card feed item START -->
-				@foreach (PostModel actpost in ViewBag.activatePosts)
-					{
+				@{
+					List<PostModel> posts = ViewBag.activatePosts;
+					var orderedPosts = from post in posts
+												orderby post.CreateDate descending
+												select post;
+				}
+
+				@foreach (var actpost in orderedPosts)
+				{
 				<div class="card">
 					
 					<!-- Card header START -->
@@ -205,9 +212,10 @@
 								<div>
 									<div class="nav nav-divider">
 										<h6 class="nav-item card-title mb-0"> <a href="#!"> @actpost.FullName </a></h6>
-										@*<span class="nav-item small"> 2hr</span>*@
+										@*<span class="nav-item small"> @actpost.CreateDate</span>*@
 									</div>
-									<p class="mb-0 small">Student</p>
+									@*<p class="mb-0 small">Student</p>*@
+										<span class="nav-item small"> @actpost.CreateDate</span>
 								</div>
 							</div>
 							<!-- Card feed action dropdown START -->
