@@ -11,7 +11,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using NuGet.ContentModel;
 using SocialProject.Data;
 using SocialProject.Models;
 using static System.Net.WebRequestMethods;
