@@ -57,10 +57,28 @@ namespace SocialProject.Controllers
 				}
 				await _context.SaveChangesAsync();
 
+				ViewBag.NotificationsCount = notifications.Count; // Pass the count of notifications to ViewBag
+
 				// Pass the notifications to the partial view
 				return PartialView("_Notifications", notifications);
 			}
-			return PartialView("_Notifications");
+
+			ViewBag.NotificationsCount = 0; // If there are no notifications, set the count to 0
+			return PartialView("_Notifications", new List<NotificationModel>());
+		}
+
+		[HttpGet]
+		public async Task<IActionResult> NotificationsData()
+		{
+			int? userId = HttpContext.Session.GetInt32("UserId");
+
+			if (userId != null)
+			{
+				var notifications = await _context.Notifications.Where(n => n.ReceiverId == userId && !n.IsRead).ToListAsync();
+				return Json(notifications);
+			}
+
+			return Json(new List<NotificationModel>());
 		}
 
 		//public async Task<IActionResult> Notifications()
